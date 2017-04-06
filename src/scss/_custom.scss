@@ -7,3 +7,13 @@
 .main .container-fluid {
     padding: 15px;
 }
+.card-title{
+    font-size: x-large;
+    margin: 0;
+}
+.card-header .btn {
+    margin-top: 0;
+}
+.card-header .btn+.btn {
+    margin-left: 5px;
+}
