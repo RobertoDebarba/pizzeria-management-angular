@@ -2,12 +2,17 @@ import { NgModule } from '@angular/core';
 import { Routes,
      RouterModule } from '@angular/router';
 
-import { DashboardComponent } from './dashboard.component';
+import { OrderComponent } from '../order/order.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: DashboardComponent,
+    redirectTo: 'order',
+    pathMatch: 'full',
+  },
+  {
+    path: 'order',
+    component: OrderComponent,
     data: {
       title: 'Pedidos'
     }

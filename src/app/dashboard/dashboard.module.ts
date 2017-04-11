@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
-import { DashboardComponent } from './dashboard.component';
+import { OrderComponent } from '../order/order.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 
 @NgModule({
@@ -9,6 +9,6 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
     DashboardRoutingModule,
     ChartsModule
   ],
-  declarations: [ DashboardComponent ]
+  declarations: [ OrderComponent ]
 })
 export class DashboardModule { }

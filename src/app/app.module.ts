@@ -12,7 +12,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { AppRoutingModule } from './app.routing';
 
 //Layouts
-import { FullLayoutComponent } from './layouts/full-layout.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   imports: [
@@ -24,7 +24,7 @@ import { FullLayoutComponent } from './layouts/full-layout.component';
   ],
   declarations: [
     AppComponent,
-    FullLayoutComponent
+    DashboardComponent
   ],
   providers: [{
     provide: LocationStrategy,
