@@ -5,6 +5,7 @@ import {DashboardRoutingModule} from "./dashboard-routing.module";
 import {ClientComponent} from "../client/client.component";
 import {ProductComponent} from "../product/product.component";
 import { ModalModule } from 'ng2-bootstrap/modal';
+import {OrderService} from '../provider/order.service'
 
 @NgModule({
     imports: [
@@ -16,6 +17,9 @@ import { ModalModule } from 'ng2-bootstrap/modal';
         OrderComponent,
         ClientComponent,
         ProductComponent
+    ],
+    providers: [
+        OrderService
     ]
 })
 export class DashboardModule {
