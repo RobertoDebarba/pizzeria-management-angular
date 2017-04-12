@@ -4,11 +4,13 @@ import {OrderComponent} from "../order/order.component";
 import {DashboardRoutingModule} from "./dashboard-routing.module";
 import {ClientComponent} from "../client/client.component";
 import {ProductComponent} from "../product/product.component";
+import { ModalModule } from 'ng2-bootstrap/modal';
 
 @NgModule({
     imports: [
         DashboardRoutingModule,
-        ChartsModule
+        ChartsModule,
+        ModalModule.forRoot()
     ],
     declarations: [
         OrderComponent,
