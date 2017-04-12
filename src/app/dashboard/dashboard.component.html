@@ -6,14 +6,8 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#/dashboard/order">Pedidos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#/dashboard/client">Clientes</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#/dashboard/product">Produtos</a>
+      <li class="nav-item" *ngFor="let page of pages" [ngClass]="{'active': isActivePage(page)}">
+        <a class="nav-link" href="#/dashboard/{{page.route}}">{{page.title}}</a>
       </li>
     </ul>
   </div>
