@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Roberto Luiz Debarba",
+    "cpf": 11111111111,
+    "phone1": 47999443311,
+    "phone2": 47999445511,
+    "address": {
+      "place": "Rua Egito",
+      "city": "Timbó",
+      "zipCode": 89120000,
+      "number": 574,
+      "neighborhood": "Nações",
+      "info": "Pŕoximo a padaria do Zé"
+    }
+  },
+  {
+    "name": "Matheus Adriano Pereira",
+    "cpf": 22222222222,
+    "phone1": 47999443311,
+    "phone2": 47999445511,
+    "address": {
+      "place": "Rua Manaus",
+      "city": "Blumenau",
+      "zipCode": 87124100,
+      "number": 999,
+      "neighborhood": "Itoupava",
+      "info": "Pŕoximo ao boteco da Irene"
+    }
+  },
+  {
+    "name": "Matheus Eduardo Hoeltgebaum Pereira",
+    "cpf": 333333333,
+    "phone1": 47999443311,
+    "phone2": 47999445511,
+    "address": {
+      "place": "Rua Austria",
+      "city": "Blumenau",
+      "zipCode": 48731200,
+      "number": 497,
+      "neighborhood": "Mulde Alta",
+      "info": null
+    }
+  }
+]
