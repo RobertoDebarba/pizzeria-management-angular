@@ -2,11 +2,13 @@ import {Router, Request, Response} from "express";
 import * as fs from "fs";
 import * as path from "path";
 import {Product} from "./product-router";
+import {Client} from "./client-router";
 
 const dataFilePath:string = '../data/order';
 const productDataFilePath:string = '../data/product';
+const clientDataFilePath:string = '../data/client';
 
-interface Order {
+interface OrderStorage {
     id:number,
     date:string,
     status:string,
@@ -14,7 +16,15 @@ interface Order {
     products:{
         id:number,
         amount:number
-    }[],
+    }[]
+}
+
+interface Order {
+    id:number,
+    date:string,
+    status:string,
+    client:Client,
+    products:Product[],
     totalPrice:number
 }
 
@@ -34,19 +44,24 @@ export class OrderRouter {
     }
 
     private getAll(request:Request, response:Response) {
-        let orders:Order[] = require(dataFilePath);
-        orders = OrderRouter.calculateTotalPrice(orders);
+        let ordersStored:OrderStorage[] = require(dataFilePath);
+        let products:Product[] = require(productDataFilePath);
+        let clients:Client[] = require(clientDataFilePath);
 
-        response.send(orders);
+        response.send(OrderRouter.buildOrders(ordersStored, clients, products));
     }
 
     private getOne(request:Request, response:Response) {
-        let orders:Order[] = require(dataFilePath);
+        let orders:OrderStorage[] = require(dataFilePath);
 
         let query:number = parseInt(request.params.id);
-        let order:Order = orders.find((client:Order) => client.id === query);
+        let order:OrderStorage = orders.find((order:OrderStorage) => order.id == query);
         if (order) {
-            order = OrderRouter.calculateTotalPrice([order])[0];
+            let products:Product[] = require(productDataFilePath);
+            let clients:Client[] = require(clientDataFilePath);
+
+            // Aqui eu poderia usar o objeto order, porém por algum motivo sobrenatural que não aconteceria no Java, ele fica undefined após entrar no IF
+            let order:Order = OrderRouter.buildOrders([orders.find((order:OrderStorage) => order.id == query)], clients, products)[0];
 
             response.status(200)
                 .send({
@@ -54,8 +69,7 @@ export class OrderRouter {
                     status: response.status,
                     order
                 });
-        }
-        else {
+        } else {
             response.status(404)
                 .send({
                     message: 'No order found with the given id.',
@@ -65,9 +79,9 @@ export class OrderRouter {
     }
 
     private save(request:Request, response:Response) {
-        let orders:Order[] = require(dataFilePath);
+        let orders:OrderStorage[] = require(dataFilePath);
 
-        let order:Order = request.body;
+        let order:OrderStorage = request.body;
 
         orders.push(order);
         fs.writeFile(path.join(__dirname, dataFilePath + ".json"), JSON.stringify(orders), 'UTF-8', () => {
@@ -81,19 +95,34 @@ export class OrderRouter {
         })
     }
 
-    private static calculateTotalPrice(orders:Order[]):Order[] {
-        let products:Product[] = require(productDataFilePath);
-        let totalPrice:number = 0;
-        for (let order of orders) {
-            for (let orderProduct of order.products) {
-                let product = products.find((product) => product.id == orderProduct.id);
-                totalPrice += product.price;
+    private static buildOrders(ordersStored:OrderStorage[], clients:Client[], products:Product[]):Order[] {
+        let orders:Order[] = [];
+        for (let orderStored of ordersStored) {
+            let order:Order = <Order>{};
+            order.id = orderStored.id;
+            order.date = orderStored.date;
+            order.status = orderStored.status;
+            order.client = clients.find((client:Client) => client.cpf == orderStored.client);
+            order.totalPrice = OrderRouter.getTotalPrice(orderStored, products);
+            order.products = [];
+
+            for (let orderProduct of orderStored.products) {
+                order.products.push(products.find((product:Product) => product.id == orderProduct.id))
             }
 
-            order.totalPrice = totalPrice;
+            orders.push(order);
+        }
+        return orders;
+    }
+
+    private static getTotalPrice(order:OrderStorage, products:Product[]):number {
+        let totalPrice:number = 0;
+        for (let orderProduct of order.products) {
+            let product = products.find((product) => product.id == orderProduct.id);
+            totalPrice += product.price;
         }
 
-        return orders;
+        return totalPrice;
     }
 
 }

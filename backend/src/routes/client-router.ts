@@ -4,7 +4,7 @@ import * as path from "path";
 
 const dataFilePath:string = '../data/client';
 
-interface Client {
+export interface Client {
     name:string,
     cpf:number,
     phone1:number,
