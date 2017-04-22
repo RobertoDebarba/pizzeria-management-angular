@@ -10,3 +10,108 @@ Check out the [blog post](http://mherman.org/blog/2016/11/05/developing-a-restfu
 1. Test - `npm test`
 
 localhost:3000
+
+
+### Client
+
+    name:string,
+    cpf:number,
+    phone1:number,
+    phone2:number,
+    address:{
+        place:string,
+        city:string,
+        zipCode:number,
+        number:number,
+        neighborhood:string,
+        info:string
+    }
+
+### Product
+
+    {
+        id: number,
+        name: string,
+        price: number
+    }
+
+### Order
+
+    {
+        id: number,
+        date: string,
+        status: string,
+        client: Client,
+        products: Product[]
+    }
+
+### GET /api/client
+
+Response body:
+
+    Client[]
+
+### GET /api/client/:cpf
+
+Response body:
+
+    Client
+
+### POST /api/client
+
+Request body:
+
+    Client
+
+### GET /api/product
+
+Response body:
+
+    Product[]
+
+### GET /api/product/:id
+
+Response body:
+
+    Product
+
+### DELETE /api/product/:id
+
+### POST /api/product
+
+Request body:
+
+    Product
+
+### GET /api/order
+
+Response body:
+
+    Order[]
+
+### GET /api/order/:id
+
+Response body:
+
+    Order
+
+### POST /api/order
+
+### POST /api/order/complete/:id
+
+### POST /api/order/cancel/:id
+
+Request body:
+
+    {
+        id: number,
+        date: string,
+        status: string,
+        client: number[],
+        products: {
+            id: number,
+            amount: number
+        }[]
+
+    }
+
