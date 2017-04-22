@@ -1,8 +1,8 @@
-import * as express from 'express';
-import * as logger from 'morgan';
-import * as bodyParser from 'body-parser';
-
-import ClientRouter from './routes/client-router';
+import * as express from "express";
+import * as logger from "morgan";
+import * as bodyParser from "body-parser";
+import ClientRouter from "./routes/client-router";
+import OrderRouter from "./routes/order-router";
 
 class App {
 
@@ -33,6 +33,7 @@ class App {
         });
         this.express.use('/', router);
         this.express.use('/api/client', ClientRouter);
+        this.express.use('/api/order', OrderRouter);
     }
 
 }

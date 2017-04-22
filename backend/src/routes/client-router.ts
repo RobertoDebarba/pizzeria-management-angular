@@ -67,7 +67,7 @@ export class ClientRouter {
         let client:Client = request.body;
 
         clients.push(client);
-        fs.writeFile(path.join(__dirname, dataFilePath), JSON.stringify(clients), 'UTF-8', () => {
+        fs.writeFile(path.join(__dirname, dataFilePath + ".json"), JSON.stringify(clients), 'UTF-8', () => {
             clients = require(dataFilePath);
             response.status(200)
                 .send({

@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "Refrigerante",
+    "price": 8
+  },
+  {
+    "id": 2,
+    "name": "Pizza",
+    "price": 50
+  },
+  {
+    "id": 3,
+    "name": "Maionese",
+    "price": 2
+  }
+]
