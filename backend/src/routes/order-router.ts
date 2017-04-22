@@ -41,6 +41,8 @@ export class OrderRouter {
         this.router.get('/', this.getAll);
         this.router.get('/:id', this.getOne);
         this.router.post('/', this.save);
+        this.router.post('/complete/:id', this.complete);
+        this.router.post('/cancel/:id', this.cancel);
     }
 
     private getAll(request:Request, response:Response) {
@@ -93,6 +95,38 @@ export class OrderRouter {
                     order
                 });
         })
+    }
+
+    private complete(request:Request, response:Response) {
+        OrderRouter.changeStatus(request, response, "DONE");
+    }
+
+    private cancel(request:Request, response:Response) {
+        OrderRouter.changeStatus(request, response, "CANCELED");
+    }
+
+    private static changeStatus(request:Request, response:Response, status:string) {
+        let orders:OrderStorage[] = require(dataFilePath);
+
+        let query:number = parseInt(request.params.id);
+        let order:OrderStorage = orders.find((order:OrderStorage) => order.id == query);
+        if (order) {
+            order.status = status;
+            fs.writeFile(path.join(__dirname, dataFilePath + ".json"), JSON.stringify(orders), 'UTF-8', () => {
+                orders = require(dataFilePath);
+                response.status(200)
+                    .send({
+                        message: 'Success',
+                        status: response.status
+                    });
+            })
+        } else {
+            response.status(404)
+                .send({
+                    message: 'No order found with the given id.',
+                    status: response.status
+                });
+        }
     }
 
     private static buildOrders(ordersStored:OrderStorage[], clients:Client[], products:Product[]):Order[] {
