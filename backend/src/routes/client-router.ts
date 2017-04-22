@@ -66,7 +66,16 @@ export class ClientRouter {
 
         let client:Client = request.body;
 
-        clients.push(client);
+        let storedClient:Client = clients.find((storedClients:Client) => storedClients.cpf == client.cpf);
+        if (storedClient) {
+            storedClient.name = client.name;
+            storedClient.phone1 = client.phone1;
+            storedClient.phone2 = client.phone2;
+            storedClient.address = client.address;
+        } else {
+            clients.push(client);
+        }
+
         fs.writeFile(path.join(__dirname, dataFilePath + ".json"), JSON.stringify(clients), 'UTF-8', () => {
             clients = require(dataFilePath);
             response.status(200)
