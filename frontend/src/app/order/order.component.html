@@ -26,27 +26,17 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr *ngFor="let order of orders;">
+                        <td>{{order.date | date: 'dd/MM/yyyy'}}</td>
+                        <td class="Status-Order">
+                            <span class="badge badge-success" *ngIf="order.status == 'DONE'">COMPLETO</span>
+                            <span class="badge badge-warning" *ngIf="order.status == 'PENDING'">PENDENTE</span>
+                            <span class="badge badge-danger" *ngIf="order.status == 'CANCELED'">CANCELADO</span>
+                        </td>
+                        <td>{{order.client.name}}</td>
+                        <td>{{order.totalPrice}}</td>
+                        <td>No Action</td>
                     <tr>
-                        <th scope="row">20/03/2017</th>
-                        <td>Pendente</td>
-                        <td>Otto</td>
-                        <td>R$30.00</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">25/03/2017</th>
-                        <td>Concluído</td>
-                        <td>Thornton</td>
-                        <td>R$25.00</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">23/04/2017</th>
-                        <td>Cancelado</td>
-                        <td>Larry</td>
-                        <td>R$50.00</td>
-                        <td>@mdo</td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -56,104 +46,103 @@
 <div bsModal #largeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Pedido</h4>
-        <button type="button" class="btn btn-secondary" (click)="largeModal.hide()">Voltar</button>
-        <button type="button" class="btn btn-danger" (click)="largeModal.hide()">Cancelar pedido</button>
-        <button type="button" class="btn btn-success">Concluir pedido</button>
-      </div>
-      <div class="modal-body">
-        <table>
-            <tbody>
-                <tr>
-                    <th>Data</th>
-                    <td>23/04/2017 </td>
-                </tr>
-                <tr>
-                    <th>Andamento</th>
-                    <td>Pendente</td>
-                </tr>
-                <tr>
-                    <th>Cliente</th>
-                    <td>
-                        <div class="btn-group">
-                            <button class="btn btn-secondary btn-sm" type="button" id="dropdownbutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Cliente...
-                            </button>
-                            <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" id="dropdownbutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownbutton">
-                                <button class="dropdown-item"type="button">Matheus</button>
-                                <button class="dropdown-item" type="button">Roberto</button>
-                                <button class="dropdown-item" type="button">Otto</button>
-                                <button class="dropdown-item" type="button">Larry</button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="animated fadeIn">
-            <div class="card">
-                <div class="card-header">
-                    <div class="float-left card-title">Pedido</div>
+        <div class="card no-margin">
+            <div class="card-header">
+                <div class="float-left card-title">Pedido</div>
+                <div class="float-right">   
+                    <button type="button" class="btn btn-secondary float-left" (click)="largeModal.hide()"><span class="fa fa-reply"></span> Voltar</button>
+                    <button type="button" class="btn btn-danger float-left" (click)="largeModal.hide()"><span class="fa fa-close"></span> Cancelar pedido</button>
+                    <button type="button" class="btn btn-success float-left"><span class="fa fa-check"></span> Concluir pedido</button>
                 </div>
-                <div class="card-block">
-                    <div class="input-group">
-                        <div class="btn-group">
-                            <button class="btn btn-secondary btn-sm" type="button" id="dropdownbutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Produto...
-                            </button>
-                            <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" id="dropdownbutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownbutton">
-                                <button class="dropdown-item"type="button">Matheus</button>
-                                <button class="dropdown-item" type="button">Roberto</button>
-                                <button class="dropdown-item" type="button">Otto</button>
-                                <button class="dropdown-item" type="button">Larry</button>
-                            </div>
+            </div>
+            <div class="card-block">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Data</th>
+                            <td>23/04/2017 </td>
+                        </tr>
+                        <tr>
+                            <th>Andamento</th>
+                            <td>Pendente</td>
+                        </tr>
+                        <tr>
+                            <th>Cliente</th>
+                            <td>
+                                <div class="btn-group">
+                                    <button class="btn btn-secondary btn-sm" type="button" id="dropdownbutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Cliente...
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" id="dropdownbutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownbutton">
+                                        <button class="dropdown-item"type="button">Matheus</button>
+                                        <button class="dropdown-item" type="button">Roberto</button>
+                                        <button class="dropdown-item" type="button">Otto</button>
+                                        <button class="dropdown-item" type="button">Larry</button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="animated fadeIn espacamento-padrao">
+                    <div class="card no-margin">
+                        <div class="card-header">
+                            <div class="float-left card-title">Pedido</div>
                         </div>
-                        <input type="text" class="form-control" placeholder="Quantidade...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-secondary" type="button" >Adicionar</button>
-                        </span>
+                        <div class="card-block">
+                            <div class="input-group">
+                                <div class="btn-group">
+                                    <button class="btn btn-secondary btn-sm" type="button" id="dropdownbutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Produto...
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" id="dropdownbutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownbutton">
+                                        <button class="dropdown-item"type="button">Matheus</button>
+                                        <button class="dropdown-item" type="button">Roberto</button>
+                                        <button class="dropdown-item" type="button">Otto</button>
+                                        <button class="dropdown-item" type="button">Larry</button>
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Quantidade...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-secondary" type="button" >Adicionar</button>
+                                </span>
+                            </div>
+                            <table class="table table-sm table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Quantidade</th>
+                                        <th>Valor</th>
+                                        <th>Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Pizza 15cm</td>
+                                        <td>1</td>
+                                        <td>R$30.00</td>
+                                        <td>@mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Coca cola</td>
+                                        <td>1</td>
+                                        <td>R$8.00</td>
+                                        <td>@mdo</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <table class="table table-sm table-hover">
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Quantidade</th>
-                                <th>Valor</th>
-                                <th>Ação</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Pizza 15cm</td>
-                                <td>1</td>
-                                <td>R$30.00</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <td>Coca cola</td>
-                                <td>1</td>
-                                <td>R$8.00</td>
-                                <td>@mdo</td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>
-
-      </div>
-      <div class="modal-footer">
-        <!--<button type="button" class="btn btn-secondary" (click)="largeModal.hide()">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>-->
-      </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
