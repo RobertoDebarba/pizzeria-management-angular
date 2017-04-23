@@ -3,8 +3,135 @@
         <div class="card-header">
             <div class="float-left card-title">Clientes</div>
             <div class="float-right">   
-                <button type="button" class="btn btn-success float-left"><span class="fa fa-plus"></span> Novo</button>
+                <button type="button" class="btn btn-success float-left" data-toggle="modal" (click)="largeModal.show()"><span class="fa fa-plus"></span> Novo</button>
             </div>
+        </div>
+        <div class="card-block">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Pesquisar...">
+                <span class="input-group-btn">
+                    <button class="btn btn-secondary" type="button" >
+                        <span class="fa fa-search"></span>
+                    </button>
+                </span>
+            </div>
+            <table class="table table-sm table-hover">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Telefone residencial</th>
+                        <th>Telefone celular</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Otto</th>
+                        <td>054.384.692-30</td>
+                        <td>(47) 3337-1155</td>
+                        <td>(47) 99154-5567</td>
+                        <td>@mdo</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Larry</th>
+                        <td>054.384.600-44</td>
+                        <td>(47) 3035-2525</td>
+                        <td>(47) 99995-5487</td>
+                        <td>@mdo</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Thornton</th>
+                        <td>052.394.792-31</td>
+                        <td>(47) 3229-2549</td>
+                        <td>(47) 99814-9814</td>
+                        <td>@mdo</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
+<div bsModal #largeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Cliente</h4>
+        <button type="button" class="btn btn-secondary" (click)="largeModal.hide()">Voltar</button>
+        <button type="button" class="btn btn-danger" (click)="largeModal.hide()">Cancelar cadastro</button>
+        <button type="button" class="btn btn-success">Concluir cadastro</button>
+      </div>
+      <div class="modal-body">
+        <table>
+            <tbody>
+                <tr>
+                    <th>Nome</th>
+                    <td>
+                        <input required>
+                    </td>
+                </tr>
+                <tr>
+                    <th>CPF</th>
+                    <td>
+                        <input placeholder="000.000.000-00" pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" required>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Telefone residencial</th>
+                    <td>
+                        <input placeholder="(47) 3333-3333" pattern="([0-9]{2}) [0-9]{4}-[0-9]{4}" required>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Telefone celular</th>
+                    <td>
+                        <input placeholder="(47) 99999-9999" pattern="([0-9]{2}) [0-9]{5}-[0-9]{4}" required>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Rua</th>
+                    <td>
+                        <input required>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Número</th>
+                    <td>
+                        <input type="number" min="1" required>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Bairro</th>
+                    <td>
+                        <input required>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Cidade</th>
+                    <td>
+                        <input required>
+                    </td>
+                </tr>
+                <tr>
+                    <th>CEP</th>
+                    <td>
+                        <input placeholder="00000-000" pattern="[0-9]{5}-[0-9]{3}" required>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Informação adicional</th>
+                    <td>
+                        <input>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <!--<button type="button" class="btn btn-secondary" (click)="largeModal.hide()">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>-->
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
