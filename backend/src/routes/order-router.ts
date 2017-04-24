@@ -24,7 +24,10 @@ interface Order {
     date:string,
     status:string,
     client:Client,
-    products:Product[],
+    products:{
+        product:Product,
+        amount:number
+    }[],
     totalPrice:number
 }
 
@@ -141,7 +144,11 @@ export class OrderRouter {
             order.products = [];
 
             for (let orderProduct of orderStored.products) {
-                order.products.push(products.find((product:Product) => product.id == orderProduct.id))
+                var product = products.find((product:Product) => product.id == orderProduct.id);
+                order.products.push({
+                    product: product,
+                    amount: orderProduct.amount
+                })
             }
 
             orders.push(order);
