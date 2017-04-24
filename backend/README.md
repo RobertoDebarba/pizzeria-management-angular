@@ -42,7 +42,10 @@ localhost:3000
         date: string,
         status: string,
         client: Client,
-        products: Product[]
+        products: {
+            product: Product,
+            amount: number
+        }[]
     }
 
 ### GET /api/client
