@@ -16,7 +16,9 @@ export class OrderComponent {
   clients: Client[] = [];
   selectClient: Client;
   products: Product[] = [];
+  AllProducts: Product[] = [];
   selectProduct: Product;
+  selectQuantidade : number;
 
   constructor(private orderServices: OrderService, private clientService: ClientService,
                private productService: ProductService){
@@ -35,7 +37,11 @@ export class OrderComponent {
   }
 
   private AtualizaProdutos(){
-    this.productService.getProducts().subscribe(p => this.products = p);
+    this.productService.getProducts().subscribe(p => this.AllProducts = p);
+    this.products = [];
+    for(let prod of this.AllProducts){
+      this.products.push(prod);
+    }
   }
 
   private internalNewOrder(){
@@ -46,6 +52,7 @@ export class OrderComponent {
     this.currentOrder.status = 'PENDING';
     this.currentOrder.totalPrice = 0;
     this.AtualizaClientes();
+    this.AtualizaProdutos();
   }
 
   private setCurrentOrder(ord: Order){
@@ -80,5 +87,23 @@ export class OrderComponent {
 
   public close(){
       document.getElementById('close').click();
+  }
+
+  public excluirProduto(prod : {product:Product, amount:number}){
+     this.currentOrder.products.splice(this.currentOrder.products.indexOf(prod), 1);
+     this.products.push(prod.product);
+  }
+
+  public adcionaProduct(){
+    this.products.splice(this.products.indexOf(this.selectProduct), 1);
+    this.currentOrder.products.push({product: this.selectProduct, amount: this.selectQuantidade});
+    this.selectQuantidade = null;
+  }
+
+  public salvar(ord: Order){
+    this.currentOrder.client = this.selectClient;
+    this.orderServices.salvar(ord);
+    this.close();
+    this.atualizaOrders();
   }
 }

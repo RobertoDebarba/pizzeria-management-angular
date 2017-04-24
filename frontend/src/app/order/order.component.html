@@ -58,7 +58,7 @@
                     <button (click)="largeModal.hide()" class="btn btn-secondary float-left" id="close" type="button"><span class="fa fa-reply"></span> Voltar</button>
                     <button (click)="cancelar(currentOrder)" *ngIf="currentOrder.id > 0 && currentOrder.status == 'PENDING'" type="button" class="btn btn-danger float-left"><span class="fa fa-close"></span> Cancelar pedido</button>
                     <button (click)="confirmar(currentOrder)" *ngIf="currentOrder.id > 0 && currentOrder.status == 'PENDING'" class="btn btn-success float-left"><span class="fa fa-check"></span> Concluir pedido</button>
-                    <button (click)="largeModal.hide()" *ngIf="currentOrder.id == 0" class="btn btn-success float-left"><span class="fa fa-check"></span> Salvar</button>
+                    <button (click)="salvar(currentOrder)" *ngIf="currentOrder.id == 0" class="btn btn-success float-left"><span class="fa fa-check"></span> Salvar</button>
                 </div>
             </div>
             <div class="card-block">
@@ -100,9 +100,9 @@
                                 <select [(ngModel)]="selectProduct" class="custom-select">
                                     <option *ngFor="let product of products" [ngValue]="product">{{product.name}}</option>
                                 </select>
-                                <input type="text" class="form-control" placeholder="Quantidade...">
+                                <input type="text" [(ngModel)]="selectQuantidade" class="form-control" placeholder="Quantidade...">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-secondary" type="button" >Adicionar</button>
+                                    <button (click)="adcionaProduct()" class="btn btn-secondary" type="button" >Adicionar</button>
                                 </span>
                             </div>
                             <table class="table table-sm table-hover">
@@ -111,22 +111,18 @@
                                         <th>Nome</th>
                                         <th>Quantidade</th>
                                         <th>Valor</th>
-                                        <th>Ação</th>
+                                        <th *ngIf="currentOrder.id == 0">Ação</th>
                                     </tr>
                                 </thead>
                                 <tbody> 
                                     <!--currentOrder-->
-                                    <tr>
-                                        <td>Pizza 15cm</td>
-                                        <td>1</td>
-                                        <td>R$30.00</td>
-                                        <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Coca cola</td>
-                                        <td>1</td>
-                                        <td>R$8.00</td>
-                                        <td>@mdo</td>
+                                    <tr *ngFor="let product of currentOrder.products">
+                                        <td>{{product.product.name}}</td>
+                                        <td>{{product.amount}}</td>
+                                        <td>R${{product.amount * product.product.price}}</td>
+                                        <td *ngIf="currentOrder.id == 0">
+                                            <button title="Excluir produto" (click)="excluirProduto(product)" type="button" class="btn btn-danger  btn-sm" data-toggle="tooltip" data-placement="top"><span class="fa fa-close"></span></button>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

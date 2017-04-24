@@ -67,4 +67,24 @@ export class OrderService {
                 .catch((error:any) => Observable.throw(error.json().error || 'Server error')) //...errors if any
                 .subscribe(); 
     } 
+
+    public salvar(ord : Order){
+        let ordario = <OrderStorage> {
+            id: 7,
+            date: ord.date,
+            status: ord.status,
+            client: ord.client.cpf,
+            products: []
+        };
+        for(let prod of ord.products){
+            ordario.products.push({id: prod.product.id, amount: prod.amount});
+        }
+        this.postSave(ordario);
+    }
+
+    private postSave(ord: OrderStorage){
+        this.http.post('http://localhost:3000/api/order/', ord , this.getHeaders()) // ...using post request
+                .catch((error:any) => Observable.throw(error.json().error || 'Server error')) //...errors if any
+                .subscribe(); 
+    }
 }
