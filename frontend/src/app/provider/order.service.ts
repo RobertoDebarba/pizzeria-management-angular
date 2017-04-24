@@ -37,14 +37,14 @@ export class OrderService {
         return orders;
     }
 
-    // public getOrder(id:number): Observable<Order> {
-    //     return this.http.get('http://192.168.0.24:3000/api/order/', this.getHeaders())
-    //             .map((res:Response) => res.json())
-    //             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
-    // }
+    public getOrder(id:number): Observable<Order> {
+        return this.http.get('http://localhost:3000/api/order/' + id, this.getHeaders())
+                .map((res:Response) => res.json())
+                .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
 
     private atualizaOrders() {
-        orders = this.http.get('http://192.168.0.24:3000/api/order/', this.getHeaders())
+        orders = this.http.get('http://localhost:3000/api/order/', this.getHeaders())
                 .map((res:Response) => res.json())
                 .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }

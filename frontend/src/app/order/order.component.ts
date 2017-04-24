@@ -17,7 +17,32 @@ export class OrderComponent {
     this.orderServices.getOrders().subscribe(o => this.orders = o);
   }
 
-  // public setCurrentOrder(id: number){
-  //   this.orderServices.getOrder(id)
-  // }
+  private setCurrentOrder(id: number){
+    this.orderServices.getOrder(id).subscribe(c => {
+      this.currentOrder = c;
+      console.log(this.currentOrder);
+    });
+    console.log(this.currentOrder);
+  }
+
+  private show(){
+    document.getElementById('show').click();
+  }
+
+  public visualizar(id: number){
+    this.setCurrentOrder(id);
+    this.show();
+  }
+
+  public newOrder(){
+    this.show();
+  }
+
+  public cancelar(id: number){
+
+  }
+
+  public confirmar(id:number){
+
+  }
 }

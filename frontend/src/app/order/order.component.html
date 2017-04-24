@@ -3,7 +3,7 @@
         <div class="card-header">
             <div class="float-left card-title">Pedidos</div>
             <div class="float-right">   
-                <button type="button" class="btn btn-success float-left" data-toggle="modal" (click)="largeModal.show()"><span class="fa fa-plus"></span> Novo</button>
+                <button id="btnNew" type="button" class="btn btn-success float-left" data-toggle="modal" (click)="largeModal.show()"><span class="fa fa-plus"></span> Novo</button>
             </div>
         </div>
         <div class="card-block">
@@ -35,15 +35,18 @@
                         </td>
                         <td>{{order.client.name}}</td>
                         <td>{{order.totalPrice}}</td>
-                        <td>No Action</td>
+                        <td>
+                            <button type="button" class="btn btn-info btn-sm" (click)="visualizar(order.id)" ><span class="fa fa-info"></span></button>
+                        </td>
                     <tr>
                 </tbody>
             </table>
         </div>
     </div>
+    <button id="show" style="display: none" type="button" data-toggle="modal" (click)="largeModal.show()"> </button>
 </div>
 
-<div bsModal #largeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div bsModal #largeModal="bs-modal" id="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="card no-margin">
@@ -56,11 +59,11 @@
                 </div>
             </div>
             <div class="card-block">
-                <table>
+                <table *ngIf="currentOrder">
                     <tbody>
                         <tr>
                             <th>Data</th>
-                            <td>23/04/2017 </td>
+                            <td>{{currentOrder.date | date: 'dd/MM/yyyy'}}</td>
                         </tr>
                         <tr>
                             <th>Andamento</th>
