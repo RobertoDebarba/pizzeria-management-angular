@@ -81,11 +81,8 @@
                             <td>
                                 <div *ngIf="currentOrder.id > 0" >{{currentOrder.client.name}}</div>
                                 <div *ngIf="currentOrder.id == 0" >
-                                    <select class="custom-select">
-                                        <option selected hidden>Selecione um Cliente</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                    <select [(ngModel)]="selectClient" class="custom-select">
+                                        <option *ngFor="let client of clients" [ngValue]="client">{{client.name}}</option>
                                     </select>
                                 </div>
                             </td>
@@ -96,24 +93,13 @@
                 <div class="animated fadeIn espacamento-padrao">
                     <div class="card no-margin">
                         <div class="card-header">
-                            <div class="float-left card-title">Pedido</div>
+                            <div class="float-left card-title">Produtos</div>
                         </div>
                         <div class="card-block">
-                            <div class="input-group">
-                                <div class="btn-group">
-                                    <button class="btn btn-secondary btn-sm" type="button" id="dropdownbutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Produto...
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" id="dropdownbutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownbutton">
-                                        <button class="dropdown-item"type="button">Matheus</button>
-                                        <button class="dropdown-item" type="button">Roberto</button>
-                                        <button class="dropdown-item" type="button">Otto</button>
-                                        <button class="dropdown-item" type="button">Larry</button>
-                                    </div>
-                                </div>
+                            <div *ngIf="currentOrder.id == 0" class="input-group">
+                                <select [(ngModel)]="selectProduct" class="custom-select">
+                                    <option *ngFor="let product of products" [ngValue]="product">{{product.name}}</option>
+                                </select>
                                 <input type="text" class="form-control" placeholder="Quantidade...">
                                 <span class="input-group-btn">
                                     <button class="btn btn-secondary" type="button" >Adicionar</button>
@@ -128,7 +114,8 @@
                                         <th>Ação</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody> 
+                                    <!--currentOrder-->
                                     <tr>
                                         <td>Pizza 15cm</td>
                                         <td>1</td>

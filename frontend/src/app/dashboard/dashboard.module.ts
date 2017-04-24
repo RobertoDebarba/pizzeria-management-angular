@@ -8,10 +8,12 @@ import {ProductComponent} from "../product/product.component";
 import { ModalModule } from 'ng2-bootstrap/modal';
 import {OrderService} from '../provider/order.service'
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
     imports: [
         CommonModule,
+        FormsModule,
         HttpModule,
         DashboardRoutingModule,
         ChartsModule,

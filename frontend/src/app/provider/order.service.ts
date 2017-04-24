@@ -59,12 +59,12 @@ export class OrderService {
     public cancelar(id: number){
         this.http.post('http://localhost:3000/api/order/cancel/' + id, this.getHeaders())
                 .catch((error: any) => Observable.throw(error.json().error || 'Server error'))
-                .subscribe(o => {});
+                .subscribe();
     }
 
     public confirmar(id: number){
         this.http.post('http://localhost:3000/api/order/complete/' + id, {}, this.getHeaders()) // ...using post request
                 .catch((error:any) => Observable.throw(error.json().error || 'Server error')) //...errors if any
-                .subscribe(o => {}); 
+                .subscribe(); 
     } 
 }
