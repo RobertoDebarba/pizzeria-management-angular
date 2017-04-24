@@ -18,11 +18,11 @@
             <table class="table table-sm table-hover">
                 <thead>
                     <tr>
-                        <th>Data</th>
-                        <th>Andamento</th>
-                        <th>Cliente</th>
-                        <th>Valor</th>
-                        <th>Ação</th>
+                        <th width="10%">Data</th>
+                        <th width="10%">Andamento</th>
+                        <th width="40%">Cliente</th>
+                        <th width="20%">Valor</th>
+                        <th width="20%">Ação</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,7 +55,7 @@
             <div class="card-header">
                 <div class="float-left card-title">Pedido</div>
                 <div class="float-right">   
-                    <button (click)="largeModal.hide()" class="btn btn-secondary float-left" type="button"><span class="fa fa-reply"></span> Voltar</button>
+                    <button (click)="largeModal.hide()" class="btn btn-secondary float-left" id="close" type="button"><span class="fa fa-reply"></span> Voltar</button>
                     <button (click)="cancelar(currentOrder)" *ngIf="currentOrder.id > 0 && currentOrder.status == 'PENDING'" type="button" class="btn btn-danger float-left"><span class="fa fa-close"></span> Cancelar pedido</button>
                     <button (click)="confirmar(currentOrder)" *ngIf="currentOrder.id > 0 && currentOrder.status == 'PENDING'" class="btn btn-success float-left"><span class="fa fa-check"></span> Concluir pedido</button>
                     <button (click)="largeModal.hide()" *ngIf="currentOrder.id == 0" class="btn btn-success float-left"><span class="fa fa-check"></span> Salvar</button>
@@ -80,19 +80,13 @@
                             <th>Cliente</th>
                             <td>
                                 <div *ngIf="currentOrder.id > 0" >{{currentOrder.client.name}}</div>
-                                <div *ngIf="currentOrder.id == 0"  class="btn-group">
-                                    <button class="btn btn-secondary btn-sm" type="button" id="dropdownbutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Cliente...
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" id="dropdownbutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownbutton">
-                                        <button class="dropdown-item"type="button">Matheus</button>
-                                        <button class="dropdown-item" type="button">Roberto</button>
-                                        <button class="dropdown-item" type="button">Otto</button>
-                                        <button class="dropdown-item" type="button">Larry</button>
-                                    </div>
+                                <div *ngIf="currentOrder.id == 0" >
+                                    <select class="custom-select">
+                                        <option selected hidden>Selecione um Cliente</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
                                 </div>
                             </td>
                         </tr>

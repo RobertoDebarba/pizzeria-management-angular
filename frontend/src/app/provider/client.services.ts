@@ -22,27 +22,22 @@ export interface Client {
 @Injectable()
 export class ClientService {
     constructor(private http: Http) {
-        this.atualizaClients();
     }
 
     public getClients(): Observable<Client[]> {
-        return clients;
+        return this.http.get('http://localhost:3000/api/client/', this.getHeaders())
+                .map((res:Response) => res.json())
+                .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
-    private atualizaClients() {
+    private getHeaders(): RequestOptions{
         let options = new RequestOptions();
         options.headers = new Headers();
         options.headers.set('Access-Control-Allow-Origin', '*');
         options.headers.set('Access-Control-Allow-Methods', ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS']);
         options.headers.set('Access-Control-Allow-Headers', ['Origin', 'Content-Type', 'X-Auth-Token']);
-
-        clients = this.http.get('http://192.168.0.24:3000/api/client/', options)
-                .map((res:Response) => {
-                    let o = res.json();
-                    console.log(o);
-                    return o;
-                })
-                .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+        options.headers.set('Content-Type', 'application/json');
+        return options;
     }
+
 }
-var clients:Observable<Client[]>;

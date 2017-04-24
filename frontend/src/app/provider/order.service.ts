@@ -1,7 +1,6 @@
 import { Product } from './product.services';
 import { Client } from './client.services';
 import { Response } from 'express';
-import { Order } from './order.service';
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs/Rx";
 import {Http, RequestOptions, Headers} from "@angular/http";
@@ -53,17 +52,19 @@ export class OrderService {
         options.headers.set('Access-Control-Allow-Origin', '*');
         options.headers.set('Access-Control-Allow-Methods', ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS']);
         options.headers.set('Access-Control-Allow-Headers', ['Origin', 'Content-Type', 'X-Auth-Token']);
+        options.headers.set('Content-Type', 'application/json');
         return options;
     }
 
     public cancelar(id: number){
         this.http.post('http://localhost:3000/api/order/cancel/' + id, this.getHeaders())
-                .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+                .catch((error: any) => Observable.throw(error.json().error || 'Server error'))
+                .subscribe(o => {});
     }
 
     public confirmar(id: number){
-        this.http.post('http://localhost:3000/api/order/complete/' + id,{}, this.getHeaders())
-                .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
-        console.log('confirmou')
-    }
+        this.http.post('http://localhost:3000/api/order/complete/' + id, {}, this.getHeaders()) // ...using post request
+                .catch((error:any) => Observable.throw(error.json().error || 'Server error')) //...errors if any
+                .subscribe(o => {}); 
+    } 
 }

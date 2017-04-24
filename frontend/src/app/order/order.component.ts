@@ -1,4 +1,6 @@
 import { OrderService, Order } from './../provider/order.service';
+import { ProductService, Product } from './../provider/product.services';
+import { ClientService, Client } from './../provider/client.services';
 import { Component } from '@angular/core';
 
 @Component({
@@ -47,11 +49,17 @@ export class OrderComponent {
 
   public cancelar(ord: Order){
     this.orderServices.cancelar(ord.id);
+    this.close();
     this.atualizaOrders();
   }
 
   public confirmar(ord: Order){
     this.orderServices.confirmar(ord.id);
+    this.close();
     this.atualizaOrders();
+  }
+
+  public close(){
+      document.getElementById('close').click();
   }
 }
