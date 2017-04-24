@@ -23,28 +23,26 @@ export interface Order {
     date:string,
     status:string,
     client:Client,
-    products:Product[],
+    products:{
+        product:Product,
+        amount:number
+    }[],
     totalPrice:number
 }
 
 @Injectable()
 export class OrderService {
     constructor(private http: Http) {
-        this.atualizaOrders();
     }
 
     public getOrders(): Observable<Order[]> {
-        return orders;
-    }
-
-    public getOrder(id:number): Observable<Order> {
-        return this.http.get('http://localhost:3000/api/order/' + id, this.getHeaders())
+        return this.http.get('http://localhost:3000/api/order/', this.getHeaders())
                 .map((res:Response) => res.json())
                 .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
-    private atualizaOrders() {
-        orders = this.http.get('http://localhost:3000/api/order/', this.getHeaders())
+    public getOrder(id:number): Observable<Order> {
+        return this.http.get('http://localhost:3000/api/order/' + id, this.getHeaders())
                 .map((res:Response) => res.json())
                 .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
@@ -57,5 +55,15 @@ export class OrderService {
         options.headers.set('Access-Control-Allow-Headers', ['Origin', 'Content-Type', 'X-Auth-Token']);
         return options;
     }
+
+    public cancelar(id: number){
+        this.http.post('http://localhost:3000/api/order/cancel/' + id, this.getHeaders())
+                .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
+    public confirmar(id: number){
+        this.http.post('http://localhost:3000/api/order/complete/' + id,{}, this.getHeaders())
+                .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+        console.log('confirmou')
+    }
 }
-var orders:Observable<Order[]>;

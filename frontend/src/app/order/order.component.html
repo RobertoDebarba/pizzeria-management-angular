@@ -3,7 +3,7 @@
         <div class="card-header">
             <div class="float-left card-title">Pedidos</div>
             <div class="float-right">   
-                <button id="btnNew" type="button" class="btn btn-success float-left" data-toggle="modal" (click)="largeModal.show()"><span class="fa fa-plus"></span> Novo</button>
+                <button (click)="newOrder()" type="button" class="btn btn-success float-left"><span class="fa fa-plus"></span> Novo</button>
             </div>
         </div>
         <div class="card-block">
@@ -36,7 +36,9 @@
                         <td>{{order.client.name}}</td>
                         <td>{{order.totalPrice}}</td>
                         <td>
-                            <button type="button" class="btn btn-info btn-sm" (click)="visualizar(order.id)" ><span class="fa fa-info"></span></button>
+                            <button title="Visualizar" (click)="visualizar(order)" type="button" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" ><span class="fa fa-info"></span></button>
+                            <button title="Cancelar pedido" (click)="cancelar(order)" *ngIf="order.id > 0 && order.status == 'PENDING'" type="button" class="btn btn-danger  btn-sm"data-toggle="tooltip" data-placement="top"><span class="fa fa-close"></span></button>
+                            <button title="Concluir pedido" (click)="confirmar(order)" *ngIf="order.id > 0 && order.status == 'PENDING'" class="btn btn-success btn-sm"data-toggle="tooltip" data-placement="top" ><span class="fa fa-check"></span></button>
                         </td>
                     <tr>
                 </tbody>
@@ -53,9 +55,10 @@
             <div class="card-header">
                 <div class="float-left card-title">Pedido</div>
                 <div class="float-right">   
-                    <button type="button" class="btn btn-secondary float-left" (click)="largeModal.hide()"><span class="fa fa-reply"></span> Voltar</button>
-                    <button type="button" class="btn btn-danger float-left" (click)="largeModal.hide()"><span class="fa fa-close"></span> Cancelar pedido</button>
-                    <button type="button" class="btn btn-success float-left"><span class="fa fa-check"></span> Concluir pedido</button>
+                    <button (click)="largeModal.hide()" class="btn btn-secondary float-left" type="button"><span class="fa fa-reply"></span> Voltar</button>
+                    <button (click)="cancelar(currentOrder)" *ngIf="currentOrder.id > 0 && currentOrder.status == 'PENDING'" type="button" class="btn btn-danger float-left"><span class="fa fa-close"></span> Cancelar pedido</button>
+                    <button (click)="confirmar(currentOrder)" *ngIf="currentOrder.id > 0 && currentOrder.status == 'PENDING'" class="btn btn-success float-left"><span class="fa fa-check"></span> Concluir pedido</button>
+                    <button (click)="largeModal.hide()" *ngIf="currentOrder.id == 0" class="btn btn-success float-left"><span class="fa fa-check"></span> Salvar</button>
                 </div>
             </div>
             <div class="card-block">
@@ -67,12 +70,17 @@
                         </tr>
                         <tr>
                             <th>Andamento</th>
-                            <td>Pendente</td>
+                            <td>
+                                <span class="badge badge-success" *ngIf="currentOrder.status == 'DONE'">COMPLETO</span>
+                                <span class="badge badge-warning" *ngIf="currentOrder.status == 'PENDING'">PENDENTE</span>
+                                <span class="badge badge-danger" *ngIf="currentOrder.status == 'CANCELED'">CANCELADO</span>
+                            </td>
                         </tr>
                         <tr>
                             <th>Cliente</th>
                             <td>
-                                <div class="btn-group">
+                                <div *ngIf="currentOrder.id > 0" >{{currentOrder.client.name}}</div>
+                                <div *ngIf="currentOrder.id == 0"  class="btn-group">
                                     <button class="btn btn-secondary btn-sm" type="button" id="dropdownbutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Cliente...
                                     </button>
