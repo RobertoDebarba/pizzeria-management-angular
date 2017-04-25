@@ -3,7 +3,7 @@
         <div class="card-header">
             <div class="float-left card-title">Produtos</div>
             <div class="float-right">   
-                <button type="button" class="btn btn-success float-left" data-toggle="modal" (click)="largeModal.show()"><span class="fa fa-plus"></span> Novo</button>
+                <button (click)="novo()" type="button" class="btn btn-success float-left" data-toggle="modal"><span class="fa fa-plus"></span> Novo</button>
             </div>
         </div>
         <div class="card-block">
@@ -18,23 +18,27 @@
             <table class="table table-sm table-hover">
                 <thead>
                     <tr>
-                        <th>Identificador</th>
-                        <th>Nome</th>
-                        <th>Preço</th>
-                        <th>Ação</th>
+                        <th width="10%">ID</th>
+                        <th width="70%">Nome</th>
+                        <th width="10%">Preço</th>
+                        <th width="10%">Ação</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let product of AllProducts;">
                         <th scope="row">{{product.id}}</th>
                         <td>{{product.name}}</td>
-                        <td>R${{product.price}}</td>
-                        <td>@mdo</td>
+                        <td>{{product.price |  currency : 'BRL' : true}}</td>
+                        <td>
+                            <button title="Visualizar" (click)="visualizar(product)" type="button" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" ><span class="fa fa-info"></span></button>
+                            <button title="Excluir" (click)="excluir(product)" type="button" class="btn btn-danger  btn-sm"data-toggle="tooltip" data-placement="top"><span class="fa fa-minus"></span></button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
+    <button id="show" style="display: none" type="button" data-toggle="modal" (click)="largeModal.show()"> </button>
 </div>
 
 <div bsModal #largeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

@@ -34,7 +34,7 @@
                             <span class="badge badge-danger" *ngIf="order.status == 'CANCELED'">CANCELADO</span>
                         </td>
                         <td>{{order.client.name}}</td>
-                        <td>{{order.totalPrice}}</td>
+                        <td>{{order.totalPrice |  currency : 'BRL' : true }}</td>
                         <td>
                             <button title="Visualizar" (click)="visualizar(order)" type="button" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" ><span class="fa fa-info"></span></button>
                             <button title="Cancelar pedido" (click)="cancelar(order)" *ngIf="order.id > 0 && order.status == 'PENDING'" type="button" class="btn btn-danger  btn-sm"data-toggle="tooltip" data-placement="top"><span class="fa fa-close"></span></button>
@@ -100,7 +100,7 @@
                                 <select [(ngModel)]="selectProduct" class="custom-select">
                                     <option *ngFor="let product of products" [ngValue]="product">{{product.name}}</option>
                                 </select>
-                                <input type="text" [(ngModel)]="selectQuantidade" class="form-control" placeholder="Quantidade...">
+                                <input type="number" [(ngModel)]="selectQuantidade" class="form-control" placeholder="Quantidade...">
                                 <span class="input-group-btn">
                                     <button (click)="adcionaProduct()" class="btn btn-secondary" type="button" >Adicionar</button>
                                 </span>
@@ -108,7 +108,7 @@
                             <table class="table table-sm table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Nome</th>
+                                        <th width="60%">Nome</th>
                                         <th>Quantidade</th>
                                         <th>Valor</th>
                                         <th *ngIf="currentOrder.id == 0">Ação</th>
@@ -119,7 +119,7 @@
                                     <tr *ngFor="let product of currentOrder.products">
                                         <td>{{product.product.name}}</td>
                                         <td>{{product.amount}}</td>
-                                        <td>R${{product.amount * product.product.price}}</td>
+                                        <td>{{product.amount * product.product.price  |  currency : 'BRL' : true }}</td>
                                         <td *ngIf="currentOrder.id == 0">
                                             <button title="Excluir produto" (click)="excluirProduto(product)" type="button" class="btn btn-danger  btn-sm" data-toggle="tooltip" data-placement="top"><span class="fa fa-minus"></span></button>
                                         </td>

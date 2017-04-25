@@ -19,4 +19,27 @@ export class ProductComponent {
     this.productService.getProducts().subscribe(p => this.AllProducts = p);
   }
 
+  
+
+
+
+
+
+
+
+  private show(){
+    document.getElementById('show').click();
+  }
+
+  public visualizar(prod: Product){
+
+  }
+
+  public excluir(prod: Product){
+
+  }
+
+  public novo(){
+    this.show();
+  }
 }
