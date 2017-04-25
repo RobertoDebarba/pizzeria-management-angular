@@ -52,34 +52,40 @@
 <div bsModal #largeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Produto</h4>
-        <button type="button" class="btn btn-secondary" (click)="largeModal.hide()">Voltar</button>
-        <button type="button" class="btn btn-danger" (click)="largeModal.hide()">Cancelar cadastro</button>
-        <button type="button" class="btn btn-success">Concluir cadastro</button>
-      </div>
-      <div class="modal-body">
-        <table>
-            <tbody>
-                <tr>
-                    <th>Nome</th>
-                    <td>
-                        <input required>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Preço</th>
-                    <td>
-                        <input type="number" min="1" required>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <!--<button type="button" class="btn btn-secondary" (click)="largeModal.hide()">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>-->
-      </div>
+        <form #productForm="ngForm">
+            <div class="card no-margin">
+                <div class="card-header">
+                    <div class="float-left card-title">Produto</div>
+                    <div class="float-right">
+                        <button (click)="largeModal.hide()" class="btn btn-secondary float-left" id="close" type="button"><span class="fa fa-reply"></span> Voltar</button>
+                        <button type="submit" class="btn btn-success" [disabled]="!productForm.form.valid">Concluir cadastro</button>
+                    </div>
+                </div>
+                <div class="card-block">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-1">
+                                <span class="bold">Nome</span>
+                            </div>
+                            <div class="col-11">
+                                <input class="inputs" type="text" name="name" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1">
+                                <span class="bold">Preço</span>
+                            </div>
+                            <div class="col-11">
+                                <div class="input-group">
+                                    <span class="input-group-addon">R$</span>
+                                    <input class="form-control currency inputs" type="number" min="0" step="1" data-number-to-fixed="2" data-number-stepfactor="100" id="c2" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
