@@ -87,6 +87,7 @@ export class OrderRouter {
         let orders:OrderStorage[] = require(dataFilePath);
 
         let order:OrderStorage = request.body;
+        order.id = orders[orders.length - 1].id + 1;
 
         orders.push(order);
         fs.writeFile(path.join(__dirname, dataFilePath + ".json"), JSON.stringify(orders), 'UTF-8', () => {
