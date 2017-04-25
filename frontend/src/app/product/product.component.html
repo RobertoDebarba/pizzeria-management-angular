@@ -25,22 +25,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Pizza</td>
-                        <td>R$50.00</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Refrigerante</td>
-                        <td>R$8.00</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Maionese</td>
-                        <td>R$2.00</td>
+                    <tr *ngFor="let product of AllProducts;">
+                        <th scope="row">{{product.id}}</th>
+                        <td>{{product.name}}</td>
+                        <td>R${{product.price}}</td>
                         <td>@mdo</td>
                     </tr>
                 </tbody>
