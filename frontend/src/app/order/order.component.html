@@ -121,7 +121,7 @@
                                         <td>{{product.amount}}</td>
                                         <td>R${{product.amount * product.product.price}}</td>
                                         <td *ngIf="currentOrder.id == 0">
-                                            <button title="Excluir produto" (click)="excluirProduto(product)" type="button" class="btn btn-danger  btn-sm" data-toggle="tooltip" data-placement="top"><span class="fa fa-close"></span></button>
+                                            <button title="Excluir produto" (click)="excluirProduto(product)" type="button" class="btn btn-danger  btn-sm" data-toggle="tooltip" data-placement="top"><span class="fa fa-minus"></span></button>
                                         </td>
                                     </tr>
                                 </tbody>
