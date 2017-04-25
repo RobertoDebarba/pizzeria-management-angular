@@ -58,7 +58,7 @@
                     <div class="float-left card-title">Produto</div>
                     <div class="float-right">
                         <button (click)="largeModal.hide()" class="btn btn-secondary float-left" id="close" type="button"><span class="fa fa-reply"></span> Voltar</button>
-                        <button type="submit" class="btn btn-success" [disabled]="!productForm.form.valid">Concluir cadastro</button>
+                        <button type="submit" class="btn btn-success" [disabled]="!productForm.form.valid"><span class="fa fa-check"></span> Salvar</button>
                     </div>
                 </div>
                 <div class="card-block">
@@ -78,7 +78,7 @@
                             <div class="col-11">
                                 <div class="input-group">
                                     <span class="input-group-addon">R$</span>
-                                    <input class="form-control currency inputs" type="number" min="0" step="1" data-number-to-fixed="2" data-number-stepfactor="100" id="c2" />
+                                    <input class="form-control currency inputs" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" placeholder="10,00" required/>
                                 </div>
                             </div>
                         </div>
