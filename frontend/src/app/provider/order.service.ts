@@ -70,7 +70,7 @@ export class OrderService {
 
     public salvar(ord : Order){
         let ordario = <OrderStorage> {
-            id: 7,
+            id: 0,
             date: ord.date,
             status: ord.status,
             client: ord.client.cpf,
