@@ -5,6 +5,9 @@ import { Component } from '@angular/core';
 })
 export class ProductComponent {
 
+  public name: string;
+  public price: number;
+
   constructor( ) { }
 
 }

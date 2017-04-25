@@ -52,7 +52,7 @@
 <div bsModal #largeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-        <form #productForm="ngForm">
+        <form #productForm="ngForm" (ngSubmit)="save()">
             <div class="card no-margin">
                 <div class="card-header">
                     <div class="float-left card-title">Produto</div>
@@ -68,7 +68,7 @@
                                 <span class="bold">Nome</span>
                             </div>
                             <div class="col-11">
-                                <input class="inputs" type="text" name="name" required>
+                                <input class="inputs" type="text" name="name" [(ngModel)]="name" required>
                             </div>
                         </div>
                         <div class="row">
@@ -78,7 +78,7 @@
                             <div class="col-11">
                                 <div class="input-group">
                                     <span class="input-group-addon">R$</span>
-                                    <input class="form-control currency inputs" type="number" min="0" step="1" data-number-to-fixed="2" data-number-stepfactor="100" id="c2" />
+                                    <input class="form-control currency inputs" name="price" [(ngModel)]="price" type="number" min="0" step="1" data-number-to-fixed="2" data-number-stepfactor="100" id="c2" required/>
                                 </div>
                             </div>
                         </div>
