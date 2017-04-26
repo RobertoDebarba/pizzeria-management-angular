@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ProductService, Product } from '../provider/product.services'
+import {ProductFilterPipe} from "../provider/product-filter.pipe";
 
 @Component({
   templateUrl: 'product.component.html',
@@ -10,6 +11,8 @@ export class ProductComponent {
 
   public name: string;
   public price: number;
+
+  public textSearch: string;
 
   constructor(private productService: ProductService) {
     this.AtualizaProdutos();
