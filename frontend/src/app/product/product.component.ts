@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ProductService, Product } from '../provider/product.services'
+import {ProductFilterPipe} from "../provider/product-filter.pipe";
 
 @Component({
   templateUrl: 'product.component.html',
@@ -8,6 +9,8 @@ import { ProductService, Product } from '../provider/product.services'
 export class ProductComponent {
   AllProducts : Product[] = [];
   currentProduct: Product = <Product>{};
+
+  public textSearch: string;
 
   constructor(private productService: ProductService) {
     this.AtualizaProdutos();

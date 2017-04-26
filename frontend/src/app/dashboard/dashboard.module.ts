@@ -9,6 +9,7 @@ import { ModalModule } from 'ng2-bootstrap/modal';
 import {OrderService} from '../provider/order.service'
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import {ProductFilterPipe} from "../provider/product-filter.pipe";
 
 @NgModule({
     imports: [
@@ -22,7 +23,8 @@ import { FormsModule } from '@angular/forms';
     declarations: [
         OrderComponent,
         ClientComponent,
-        ProductComponent
+        ProductComponent,
+        ProductFilterPipe
     ],
     providers: [
         OrderService
