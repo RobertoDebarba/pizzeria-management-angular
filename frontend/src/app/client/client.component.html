@@ -26,7 +26,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let client of (AllClients | clientFilter:textSearch) | sortBy:ordination" >
+                    <tr *ngFor="let client of (AllClients | clientFilter:textSearch) | sortBy:ordination, crecente" >
                         <th>{{client.name}}</th>
                         <td>{{client.cpf}}</td>
                         <td>{{client.phone1}}</td>
@@ -125,7 +125,7 @@
                                     <span class="bold align-right">Compl.</span>
                                 </div>
                                 <div class="col-5">
-                                    <input class="inputs" type="text" name="complemento" [(ngModel)]="CurrentClient.address.info" required/>
+                                    <input class="inputs" type="text" name="complemento" [(ngModel)]="CurrentClient.address.info"/>
                                 </div>
                             </div>
                         </div>

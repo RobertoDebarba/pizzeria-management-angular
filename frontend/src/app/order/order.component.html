@@ -99,15 +99,17 @@
                                 <div class="float-left card-title">Produtos</div>
                             </div>
                             <div class="card-block">
-                                <div *ngIf="currentOrder.id == 0" class="input-group">
-                                    <select [(ngModel)]="selectProduct" name="selectProduct" class="custom-select">
-                                        <option *ngFor="let product of products" [ngValue]="product">{{product.name}}</option>
-                                    </select>
-                                    <input type="number" [(ngModel)]="selectQuantidade" name="selectQuantidade" class="form-control" placeholder="Quantidade...">
-                                    <span class="input-group-btn">
-                                <button (click)="adcionaProduct()" class="btn btn-secondary" type="button" >Adicionar</button>
-                            </span>
-                                </div>
+                                <form #prodAddForm="ngForm"  (submit)="adcionaProduct()">
+                                    <div *ngIf="currentOrder.id == 0" class="input-group">
+                                        <select [(ngModel)]="selectProduct" required name="selectProduct" class="custom-select">
+                                            <option *ngFor="let product of products" [ngValue]="product">{{product.name}}</option>
+                                        </select>
+                                        <input type="number" required [(ngModel)]="selectQuantidade" name="selectQuantidade" class="form-control" placeholder="Quantidade...">
+                                        <span class="input-group-btn">
+                                            <button type="submit" [disabled]="!prodAddForm.form.valid" class="btn btn-secondary" >Adicionar</button>
+                                        </span>
+                                    </div>
+                                </form>
                                 <table class="table table-sm table-hover">
                                     <thead>
                                     <tr>

@@ -19,6 +19,7 @@ export class ClientComponent {
   public textSearch: string;
 
   public ordination: string;
+  public crecente: string = 'S';
 
   constructor(private clientService: ClientService) {
     this.AtualizaClientes();
@@ -29,8 +30,9 @@ export class ClientComponent {
   }
 
   public setOrdination(ordination:string) {
+    if(ordination != this.ordination || !this.crecente) this.crecente = 'S';
+    else this.crecente = 'N';
     this.ordination = ordination;
-    console.log(ordination);
   }
 
   public visualizar(cli:Client){
@@ -65,6 +67,10 @@ export class ClientComponent {
   }
 
   public salvar(cli: Client){
+    cli.cpf= cli.cpf;
+    cli.phone1= cli.phone1;
+    cli.phone2= cli.phone2;
+    cli.address.zipCode= cli.address.zipCode;
     this.clientService.salvar(cli);
     this.AtualizaClientes();
     this.close();

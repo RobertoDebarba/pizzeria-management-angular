@@ -28,8 +28,6 @@ export class OrderComponent {
   constructor(private orderServices: OrderService, private clientService: ClientService,
                private productService: ProductService){
     this.atualizaOrders();
-    this.AtualizaClientes();
-    this.AtualizaProdutos();
     this.internalNewOrder();
   }
 
