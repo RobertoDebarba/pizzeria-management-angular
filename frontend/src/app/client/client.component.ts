@@ -57,4 +57,10 @@ export class ClientComponent {
       document.getElementById('close').click();
   }
 
+  public salvar(cli: Client){
+    this.clientService.salvar(cli);
+    this.AtualizaClientes();
+    this.close();
+  }
+
 }
