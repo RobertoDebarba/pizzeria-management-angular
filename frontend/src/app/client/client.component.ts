@@ -1,7 +1,9 @@
+import { ClientService, Client } from './../provider/client.services';
 import { Component } from '@angular/core';
 
 @Component({
-  templateUrl: 'client.component.html'
+  templateUrl: 'client.component.html',
+  providers: [ClientService]
 })
 export class ClientComponent {
 
@@ -21,6 +23,13 @@ export class ClientComponent {
   public cep: string;
   public complemento: string;
 
-  constructor( ) { }
+  AllClients: Client[];
 
+  constructor(private clientService: ClientService) {
+    this.AtualizaClientes();
+   }
+
+  private AtualizaClientes(){
+    this.clientService.getClients().subscribe(p => this.AllClients = p);
+  }
 }
