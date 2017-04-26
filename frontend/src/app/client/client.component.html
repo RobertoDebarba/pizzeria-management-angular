@@ -3,7 +3,7 @@
         <div class="card-header">
             <div class="float-left card-title">Clientes</div>
             <div class="float-right">   
-                <button type="button" class="btn btn-success float-left" data-toggle="modal" (click)="largeModal.show()"><span class="fa fa-plus"></span> Novo</button>
+                <button type="button" class="btn btn-success float-left" data-toggle="modal" (click)="Novo()"><span class="fa fa-plus"></span> Novo</button>
             </div>
         </div>
         <div class="card-block">
@@ -39,12 +39,13 @@
             </table>
         </div>
     </div>
+    <button id="show" style="display: none" type="button" data-toggle="modal" (click)="largeModal.show()"> </button>
 </div>
 
 <div bsModal #largeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <form #clientForm="ngForm">
+            <form #clientForm="ngForm" (submit)="salvar(CurrentClient)">
                 <div class="card no-margin">
                     <div class="card-header">
                         <div class="float-left card-title">Cliente</div>
@@ -60,7 +61,7 @@
                                     <span class="bold align-right">Nome</span>
                                 </div>
                                 <div class="col-11">
-                                    <input class="inputs" type="text" name="name" [(ngModel)]="name" required>
+                                    <input class="inputs" type="text" name="name" [(ngModel)]="CurrentClient.name" required>
                                 </div>
                             </div>
                             <div class="row">
@@ -68,7 +69,7 @@
                                     <span class="bold align-right">CPF</span>
                                 </div>
                                 <div class="col-5">
-                                    <input class="inputs" type="text" placeholder="000.000.000-00" [textMask]="{mask: maskCpf}" name="cpf" [(ngModel)]="cpf" required/>
+                                    <input class="inputs" type="text" placeholder="000.000.000-00" [textMask]="{mask: maskCpf}" name="cpf" [(ngModel)]="CurrentClient.cpf" required/>
                                 </div>
                             </div>
                             <div class="row">
@@ -76,13 +77,13 @@
                                     <span class="bold align-right">Telefone</span>
                                 </div>
                                 <div class="col-5">
-                                    <input class="inputs" type="text" placeholder="(47) 3333-3333" [textMask]="{mask: maskTelefone}" name="telefone" [(ngModel)]="telefone" required/>
+                                    <input class="inputs" type="text" placeholder="(47) 3333-3333" [textMask]="{mask: maskTelefone}" name="telefone" [(ngModel)]="CurrentClient.phone1" required/>
                                 </div>
                                 <div class="col-1">
                                     <span class="bold align-right">Celular</span>
                                 </div>
                                 <div class="col-5">
-                                    <input class="inputs" type="text" placeholder="(47) 99999-9999" [textMask]="{mask: maskCelular}" name="celular" [(ngModel)]="celular" required/>
+                                    <input class="inputs" type="text" placeholder="(47) 99999-9999" [textMask]="{mask: maskCelular}" name="celular" [(ngModel)]="CurrentClient.phone2" required/>
                                 </div>
                             </div>
                             <div class="row">
@@ -90,13 +91,13 @@
                                     <span class="bold align-right">Rua</span>
                                 </div>
                                 <div class="col-5">
-                                    <input class="inputs" type="text" name="rua" [(ngModel)]="rua" required/>
+                                    <input class="inputs" type="text" name="rua" [(ngModel)]="CurrentClient.address.place" required/>
                                 </div>
                                 <div class="col-1">
                                     <span class="bold align-right">Número</span>
                                 </div>
                                 <div class="col-5">
-                                    <input class="inputs" type="number" min="0" name="numero" [(ngModel)]="numero" required/>
+                                    <input class="inputs" type="number" min="0" name="numero" [(ngModel)]="CurrentClient.address.number" required/>
                                 </div>
                             </div>
                             <div class="row">
@@ -104,13 +105,13 @@
                                     <span class="bold align-right">Bairro</span>
                                 </div>
                                 <div class="col-5">
-                                    <input class="inputs" type="text" name="bairro" [(ngModel)]="bairro" required/>
+                                    <input class="inputs" type="text" name="bairro" [(ngModel)]="CurrentClient.address.neighborhood" required/>
                                 </div>
                                 <div class="col-1">
                                     <span class="bold align-right">Cidade</span>
                                 </div>
                                 <div class="col-5">
-                                    <input class="inputs" type="text" name="cidade" [(ngModel)]="cidade" required/>
+                                    <input class="inputs" type="text" name="cidade" [(ngModel)]="CurrentClient.address.city" required/>
                                 </div>
                             </div>
                             <div class="row">
@@ -118,13 +119,13 @@
                                     <span class="bold align-right">CEP</span>
                                 </div>
                                 <div class="col-5">
-                                    <input class="inputs" type="text" placeholder="00000-000" [textMask]="{mask: maskCep}" name="cep" [(ngModel)]="cep" required/>
+                                    <input class="inputs" type="text" placeholder="00000-000" [textMask]="{mask: maskCep}" name="cep" [(ngModel)]="CurrentClient.address.zipCode" required/>
                                 </div>
                                 <div class="col-1">
                                     <span class="bold align-right">Compl.</span>
                                 </div>
                                 <div class="col-5">
-                                    <input class="inputs" type="text" name="complemento" [(ngModel)]="complemento" required/>
+                                    <input class="inputs" type="text" name="complemento" [(ngModel)]="CurrentClient.address.info" required/>
                                 </div>
                             </div>
                         </div>

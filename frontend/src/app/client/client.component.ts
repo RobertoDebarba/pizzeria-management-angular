@@ -12,18 +12,9 @@ export class ClientComponent {
   public maskCelular = ['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   public maskCep = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
 
-  public name: string;
-  public cpf: string;
-  public telefone: string;
-  public celular: string;
-  public  rua: string;
-  public numero: number;
-  public bairro: string;
-  public cidade: string;
-  public cep: string;
-  public complemento: string;
-
   AllClients: Client[];
+  CurrentClient: Client = <Client>{address: {}};
+  regNovo: boolean;
 
   constructor(private clientService: ClientService) {
     this.AtualizaClientes();
@@ -33,10 +24,37 @@ export class ClientComponent {
     this.clientService.getClients().subscribe(p => this.AllClients = p);
   }
 
-
-
-
   public visualizar(cli:Client){
-
+    this.CurrentClient ={
+      cpf: cli.cpf,
+      name: cli.name,
+      phone1: cli.phone1,
+      phone2: cli.phone2,
+      address:{
+          place: cli.address.place,
+          city: cli.address.city,
+          zipCode: cli.address.zipCode,
+          number: cli.address.number,
+          neighborhood: cli.address.neighborhood,
+          info: cli.address.info
+      }
+    };
+    this.regNovo = false;
+    this.show();
   }
+
+  public Novo(){
+    this.CurrentClient = <Client>{address: {}};
+    this.regNovo = true;
+    this.show();
+  }
+
+  private show(){
+    document.getElementById('show').click();
+  }
+
+  private close(){
+      document.getElementById('close').click();
+  }
+
 }
