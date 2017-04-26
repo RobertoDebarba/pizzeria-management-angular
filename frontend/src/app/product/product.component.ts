@@ -12,8 +12,15 @@ export class ProductComponent {
 
   public textSearch: string;
 
+  public ordination: string;
+
   constructor(private productService: ProductService) {
     this.AtualizaProdutos();
+  }
+
+  public setOrdination(ordination:string) {
+    this.ordination = ordination;
+    console.log(ordination);
   }
 
   private AtualizaProdutos(){

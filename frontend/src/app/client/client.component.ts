@@ -16,7 +16,7 @@ export class ClientComponent {
   CurrentClient: Client = <Client>{address: {}};
   regNovo: boolean;
 
-  public void ordination: string;
+  public ordination: string;
 
   constructor(private clientService: ClientService) {
     this.AtualizaClientes();

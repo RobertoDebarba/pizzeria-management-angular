@@ -18,14 +18,14 @@
             <table class="table table-sm table-hover">
                 <thead>
                     <tr>
-                        <th width="10%">ID</th>
-                        <th width="70%">Nome</th>
-                        <th width="10%">Preço</th>
+                        <th (click)="setOrdination('id')" width="10%">ID<div class="fa fa-fw fa-sort"></div></th>
+                        <th (click)="setOrdination('name')" width="70%">Nome<div class="fa fa-fw fa-sort"></div></th>
+                        <th (click)="setOrdination('price')" width="10%">Preço<div class="fa fa-fw fa-sort"></div></th>
                         <th width="10%">Ação</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let product of AllProducts | productFilter:textSearch">
+                    <tr *ngFor="let product of (AllProducts | productFilter:textSearch) | sortBy:ordination">
                         <th scope="row">{{product.id}}</th>
                         <td>{{product.name}}</td>
                         <td>{{product.price |  currency : 'BRL' : true}}</td>
