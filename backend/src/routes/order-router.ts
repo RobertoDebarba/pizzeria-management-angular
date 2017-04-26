@@ -8,7 +8,7 @@ const dataFilePath:string = '../data/order';
 const productDataFilePath:string = '../data/product';
 const clientDataFilePath:string = '../data/client';
 
-interface OrderStorage {
+export interface OrderStorage {
     id:number,
     date:string,
     status:string,
