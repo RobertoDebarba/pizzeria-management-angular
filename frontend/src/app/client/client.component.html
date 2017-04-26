@@ -18,15 +18,15 @@
             <table class="table table-sm table-hover">
                 <thead>
                     <tr>
-                        <th>Nome</th>
-                        <th>CPF</th>
-                        <th>Telefone residencial</th>
-                        <th>Telefone celular</th>
+                        <th (click)="setOrdination('name')">Nome<div class="fa fa-fw fa-sort"></div></th>
+                        <th (click)="setOrdination('cpf')">CPF<div class="fa fa-fw fa-sort"></div></th>
+                        <th (click)="setOrdination('phone1')">Telefone residencial<div class="fa fa-fw fa-sort"></div></th>
+                        <th (click)="setOrdination('phone2')">Telefone celular<div class="fa fa-fw fa-sort"></div></th>
                         <th>Ação</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let client of AllClients" >
+                    <tr *ngFor="let client of AllClients | sortBy:ordination" >
                         <th>{{client.name}}</th>
                         <td>{{client.cpf}}</td>
                         <td>{{client.phone1}}</td>

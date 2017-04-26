@@ -16,12 +16,19 @@ export class ClientComponent {
   CurrentClient: Client = <Client>{address: {}};
   regNovo: boolean;
 
+  public void ordination: string;
+
   constructor(private clientService: ClientService) {
     this.AtualizaClientes();
    }
 
   private AtualizaClientes(){
     this.clientService.getClients().subscribe(p => this.AllClients = p);
+  }
+
+  public setOrdination(ordination:string) {
+    this.ordination = ordination;
+    console.log(ordination);
   }
 
   public visualizar(cli:Client){
