@@ -23,6 +23,7 @@ export class OrderComponent {
   adicionouProduct: boolean;
 
   public textSearch: string;
+  public ordination: string;
 
   constructor(private orderServices: OrderService, private clientService: ClientService,
                private productService: ProductService){
@@ -30,6 +31,11 @@ export class OrderComponent {
     this.AtualizaClientes();
     this.AtualizaProdutos();
     this.internalNewOrder();
+  }
+
+  public setOrdination(ordination:string) {
+    this.ordination = ordination;
+    console.log(ordination);
   }
 
   private atualizaOrders(){

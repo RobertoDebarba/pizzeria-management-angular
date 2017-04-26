@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
 import {ProductFilterPipe} from "../provider/product-filter.pipe";
+import {SortByPipe} from "../provider/sort.pipe";
 
 @NgModule({
     imports: [
@@ -28,7 +29,8 @@ import {ProductFilterPipe} from "../provider/product-filter.pipe";
         ClientComponent,
         ProductComponent,
         ProductFilterPipe,
-        OrderFilterPipe
+        OrderFilterPipe,
+        SortByPipe
     ],
     providers: [
         OrderService

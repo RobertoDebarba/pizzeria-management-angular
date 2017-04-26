@@ -18,15 +18,15 @@
             <table class="table table-sm table-hover">
                 <thead>
                     <tr>
-                        <th width="10%">Data</th>
-                        <th width="10%">Andamento</th>
-                        <th width="40%">Cliente</th>
-                        <th width="20%">Valor</th>
+                        <th width="10%" class="hand" (click)="setOrdination('date')">Data<div class="fa fa-fw fa-sort"></div></th>
+                        <th width="10%" (click)="setOrdination('status')">Andamento<div class="fa fa-fw fa-sort"></div></th>
+                        <th width="40%" (click)="setOrdination('client')">Cliente<div class="fa fa-fw fa-sort"></div></th>
+                        <th width="20%" (click)="setOrdination('totalPrice')">Valor<div class="fa fa-fw fa-sort"></div></th>
                         <th width="20%">Ação</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let order of orders | orderFilter:textSearch">
+                    <tr *ngFor="let order of (orders | orderFilter:textSearch:ordination) | sortBy:ordination:ordinationAttribute">
                         <td>{{order.date | date: 'dd/MM/yyyy'}}</td>
                         <td class="Status-Order">
                             <span class="badge badge-success" *ngIf="order.status == 'DONE'">COMPLETO</span>
@@ -59,7 +59,7 @@
                         <button (click)="largeModal.hide()" class="btn btn-secondary float-left" id="close" type="button"><span class="fa fa-reply"></span> Voltar</button>
                         <button (click)="cancelar(currentOrder)" *ngIf="currentOrder.id > 0 && currentOrder.status == 'PENDING'" type="button" class="btn btn-danger float-left"><span class="fa fa-close"></span> Cancelar pedido</button>
                         <button (click)="confirmar(currentOrder)" *ngIf="currentOrder.id > 0 && currentOrder.status == 'PENDING'" class="btn btn-success float-left"><span class="fa fa-check"></span> Concluir pedido</button>
-                        <button type="submit" *ngIf="currentOrder.id == 0" class="btn btn-success float-left" [disabled]="currentOrder.products.length > 0 && !orderFormInside.form.valid"><span class="fa fa-check"></span> Salvar</button>
+                        <button type="submit" *ngIf="currentOrder.id == 0" class="btn btn-success float-left" [disabled]="currentOrder.products.length == 0 || !orderFormInside.form.valid"><span class="fa fa-check"></span> Salvar</button>
                     </div>
                 </div>
                 <div class="card-block">
