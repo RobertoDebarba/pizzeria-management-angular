@@ -54,39 +54,39 @@
         <div class="card no-margin">
             <div class="card-header">
                 <div class="float-left card-title">Pedido</div>
-                <div class="float-right">   
+                <div class="float-right">
                     <button (click)="largeModal.hide()" class="btn btn-secondary float-left" id="close" type="button"><span class="fa fa-reply"></span> Voltar</button>
                     <button (click)="cancelar(currentOrder)" *ngIf="currentOrder.id > 0 && currentOrder.status == 'PENDING'" type="button" class="btn btn-danger float-left"><span class="fa fa-close"></span> Cancelar pedido</button>
                     <button (click)="confirmar(currentOrder)" *ngIf="currentOrder.id > 0 && currentOrder.status == 'PENDING'" class="btn btn-success float-left"><span class="fa fa-check"></span> Concluir pedido</button>
-                    <button (click)="salvar(currentOrder)" *ngIf="currentOrder.id == 0" class="btn btn-success float-left"><span class="fa fa-check"></span> Salvar</button>
+                    <button type="submit" *ngIf="currentOrder.id == 0" class="btn btn-success float-left" [disabled]="!orderForm.form.valid"><span class="fa fa-check"></span> Salvar</button>
                 </div>
             </div>
             <div class="card-block">
                 <table *ngIf="currentOrder">
                     <tbody>
-                        <tr>
-                            <th>Data</th>
-                            <td>{{currentOrder.date | date: 'dd/MM/yyyy'}}</td>
-                        </tr>
-                        <tr>
-                            <th>Andamento</th>
-                            <td>
-                                <span class="badge badge-success" *ngIf="currentOrder.status == 'DONE'">COMPLETO</span>
-                                <span class="badge badge-warning" *ngIf="currentOrder.status == 'PENDING'">PENDENTE</span>
-                                <span class="badge badge-danger" *ngIf="currentOrder.status == 'CANCELED'">CANCELADO</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Cliente</th>
-                            <td>
-                                <div *ngIf="currentOrder.id > 0" >{{currentOrder.client.name}}</div>
-                                <div *ngIf="currentOrder.id == 0" >
-                                    <select [(ngModel)]="selectClient" class="custom-select">
-                                        <option *ngFor="let client of clients" [ngValue]="client">{{client.name}}</option>
-                                    </select>
-                                </div>
-                            </td>
-                        </tr>
+                    <tr>
+                        <th>Data</th>
+                        <td>{{currentOrder.date | date: 'dd/MM/yyyy'}}</td>
+                    </tr>
+                    <tr>
+                        <th>Andamento</th>
+                        <td>
+                            <span class="badge badge-success" *ngIf="currentOrder.status == 'DONE'">COMPLETO</span>
+                            <span class="badge badge-warning" *ngIf="currentOrder.status == 'PENDING'">PENDENTE</span>
+                            <span class="badge badge-danger" *ngIf="currentOrder.status == 'CANCELED'">CANCELADO</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Cliente</th>
+                        <td>
+                            <div *ngIf="currentOrder.id > 0" >{{currentOrder.client.name}}</div>
+                            <div *ngIf="currentOrder.id == 0" >
+                                <select [(ngModel)]="selectClient" class="custom-select">
+                                    <option *ngFor="let client of clients" [ngValue]="client">{{client.name}}</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
 
@@ -102,28 +102,28 @@
                                 </select>
                                 <input type="number" [(ngModel)]="selectQuantidade" class="form-control" placeholder="Quantidade...">
                                 <span class="input-group-btn">
-                                    <button (click)="adcionaProduct()" class="btn btn-secondary" type="button" >Adicionar</button>
-                                </span>
+                                <button (click)="adcionaProduct()" class="btn btn-secondary" type="button" >Adicionar</button>
+                            </span>
                             </div>
                             <table class="table table-sm table-hover">
                                 <thead>
-                                    <tr>
-                                        <th width="60%">Nome</th>
-                                        <th>Quantidade</th>
-                                        <th>Valor</th>
-                                        <th *ngIf="currentOrder.id == 0">Ação</th>
-                                    </tr>
+                                <tr>
+                                    <th width="60%">Nome</th>
+                                    <th>Quantidade</th>
+                                    <th>Valor</th>
+                                    <th *ngIf="currentOrder.id == 0">Ação</th>
+                                </tr>
                                 </thead>
-                                <tbody> 
-                                    <!--currentOrder-->
-                                    <tr *ngFor="let product of currentOrder.products">
-                                        <td>{{product.product.name}}</td>
-                                        <td>{{product.amount}}</td>
-                                        <td>{{product.amount * product.product.price  |  currency : 'BRL' : true }}</td>
-                                        <td *ngIf="currentOrder.id == 0">
-                                            <button title="Excluir produto" (click)="excluirProduto(product)" type="button" class="btn btn-danger  btn-sm" data-toggle="tooltip" data-placement="top"><span class="fa fa-minus"></span></button>
-                                        </td>
-                                    </tr>
+                                <tbody>
+                                <!--currentOrder-->
+                                <tr *ngFor="let product of currentOrder.products">
+                                    <td>{{product.product.name}}</td>
+                                    <td>{{product.amount}}</td>
+                                    <td>{{product.amount * product.product.price  |  currency : 'BRL' : true }}</td>
+                                    <td *ngIf="currentOrder.id == 0">
+                                        <button title="Excluir produto" (click)="excluirProduto(product)" type="button" class="btn btn-danger  btn-sm" data-toggle="tooltip" data-placement="top"><span class="fa fa-minus"></span></button>
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
