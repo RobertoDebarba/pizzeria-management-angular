@@ -13,7 +13,11 @@ export class OrderFilterPipe implements PipeTransform {
         let concluido: string = 'DONE';
 
         return order.filter(Order => {
-            return Order.client.name.toString().toUpperCase().indexOf(text.toUpperCase()) >= 0 ;
+            return Order.client.name.toString().toUpperCase().indexOf(text.toUpperCase()) >= 0 ||
+                (Order.status == pendente && 'PENDENTE'.indexOf(text.toUpperCase()) >= 0)||
+                (Order.status == cancelado && 'CANCELADO'.indexOf(text.toUpperCase()) >= 0)||
+                (Order.status == concluido && 'COMPLETO'.indexOf(text.toUpperCase()) >= 0) ||
+                Order.totalPrice.toString().indexOf(text.toUpperCase()) >= 0;
         })
 
     }
