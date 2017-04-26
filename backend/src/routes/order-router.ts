@@ -12,7 +12,7 @@ export interface OrderStorage {
     id:number,
     date:string,
     status:string,
-    client:number,
+    client:string,
     products:{
         id:number,
         amount:number

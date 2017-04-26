@@ -6,13 +6,13 @@ import {Http, RequestOptions, Headers} from "@angular/http";
 
 export interface Client {
     name:string,
-    cpf:number,
-    phone1:number,
-    phone2:number,
+    cpf:string,
+    phone1:string,
+    phone2:string,
     address:{
         place:string,
         city:string,
-        zipCode:number,
+        zipCode:string,
         number:number,
         neighborhood:string,
         info:string

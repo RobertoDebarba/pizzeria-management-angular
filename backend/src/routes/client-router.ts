@@ -6,13 +6,13 @@ const dataFilePath:string = '../data/client';
 
 export interface Client {
     name:string,
-    cpf:number,
-    phone1:number,
-    phone2:number,
+    cpf:string,
+    phone1:string,
+    phone2:string,
     address:{
         place:string,
         city:string,
-        zipCode:number,
+        zipCode:string,
         number:number,
         neighborhood:string,
         info:string
@@ -42,7 +42,7 @@ export class ClientRouter {
     private getOne(request:Request, response:Response) {
         let clients:Client[] = require(dataFilePath);
 
-        let query:number = parseInt(request.params.cpf);
+        let query:string = request.params.cpf;
         let client:Client = clients.find((client:Client) => client.cpf === query);
         if (client) {
             response.status(200)
