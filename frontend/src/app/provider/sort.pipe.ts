@@ -4,6 +4,10 @@ import {Pipe, PipeTransform} from "@angular/core";
 export class SortByPipe implements PipeTransform {
 
     transform(array:Array<any>, args:string, args2:string):Array<string> {
+        if (array == null) {
+            return array;
+        }
+
         array.sort((a:any, b:any) => {
             if (args2) {
                 if (a[args][args2] < b[args][args2]) {
