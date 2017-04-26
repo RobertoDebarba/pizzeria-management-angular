@@ -84,15 +84,19 @@ export class OrderComponent {
   }
 
   public cancelar(ord: Order){
-    this.orderServices.cancelar(ord.id);
-    this.close();
-    this.atualizaOrders();
+    this.orderServices.cancelar(ord.id)
+    .subscribe(() => {
+      this.close();
+      this.atualizaOrders();
+    });
   }
 
   public confirmar(ord: Order){
-    this.orderServices.confirmar(ord.id);
-    this.close();
-    this.atualizaOrders();
+    this.orderServices.confirmar(ord.id)
+    .subscribe(() => {
+      this.close();
+      this.atualizaOrders();
+    });
   }
 
   public close(){
@@ -113,8 +117,10 @@ export class OrderComponent {
 
   public salvar(ord: Order){
     this.currentOrder.client = this.selectClient;
-    this.orderServices.salvar(ord);
-    this.close();
-    this.atualizaOrders();
+    this.orderServices.salvar(ord)
+    .subscribe(() => {
+      this.close();
+      this.atualizaOrders();
+    });
   }
 }

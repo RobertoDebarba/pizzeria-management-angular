@@ -71,9 +71,11 @@ export class ClientComponent {
     cli.phone1= cli.phone1;
     cli.phone2= cli.phone2;
     cli.address.zipCode= cli.address.zipCode;
-    this.clientService.salvar(cli);
-    this.AtualizaClientes();
-    this.close();
+    this.clientService.salvar(cli)
+    .subscribe(() =>{
+      this.AtualizaClientes();
+      this.close();
+    });
   }
 
 }

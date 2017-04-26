@@ -48,14 +48,13 @@ export class ProductComponent {
   }
 
   public excluir(prod: Product){
-    this.productService.excluir(prod.id);
-    this.AtualizaProdutos();
+    this.productService.excluir(prod.id)
+    .subscribe(() => this.AtualizaProdutos());
   }
 
   public salvar(prod:Product){
-    console.log('teste');
-    this.productService.salvar(prod);
-    this.AtualizaProdutos();
+    this.productService.salvar(prod)
+    .subscribe(() => this.AtualizaProdutos());
     this.close();
   }
 

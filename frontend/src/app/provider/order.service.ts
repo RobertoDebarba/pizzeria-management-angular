@@ -56,19 +56,17 @@ export class OrderService {
         return options;
     }
 
-    public cancelar(id: number){
-        this.http.post('http://localhost:3000/api/order/cancel/' + id, this.getHeaders())
-                .catch((error: any) => Observable.throw(error.json().error || 'Server error'))
-                .subscribe();
+    public cancelar(id: number): Observable<any>{
+        return this.http.post('http://localhost:3000/api/order/cancel/' + id, this.getHeaders())
+                .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
-    public confirmar(id: number){
-        this.http.post('http://localhost:3000/api/order/complete/' + id, {}, this.getHeaders()) // ...using post request
-                .catch((error:any) => Observable.throw(error.json().error || 'Server error')) //...errors if any
-                .subscribe(); 
+    public confirmar(id: number): Observable<any>{
+        return this.http.post('http://localhost:3000/api/order/complete/' + id, {}, this.getHeaders()) // ...using post request
+                .catch((error:any) => Observable.throw(error.json().error || 'Server error')) //...errors if any; 
     } 
 
-    public salvar(ord : Order){
+    public salvar(ord : Order): Observable<any>{
         let ordario = <OrderStorage> {
             id: 0,
             date: ord.date,
@@ -79,12 +77,11 @@ export class OrderService {
         for(let prod of ord.products){
             ordario.products.push({id: prod.product.id, amount: prod.amount});
         }
-        this.postSave(ordario);
+        return this.postSave(ordario);
     }
 
-    private postSave(ord: OrderStorage){
-        this.http.post('http://localhost:3000/api/order/', ord , this.getHeaders()) // ...using post request
-                .catch((error:any) => Observable.throw(error.json().error || 'Server error')) //...errors if any
-                .subscribe(); 
+    private postSave(ord: OrderStorage): Observable<any>{
+        return this.http.post('http://localhost:3000/api/order/', ord , this.getHeaders()) // ...using post request
+                .catch((error:any) => Observable.throw(error.json().error || 'Server error')) //...errors if any; 
     }
 }
