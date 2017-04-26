@@ -6,10 +6,8 @@ import { ProductService, Product } from '../provider/product.services'
   providers: [ProductService]
 })
 export class ProductComponent {
-  AllProducts : Product[];
-
-  public name: string;
-  public price: number;
+  AllProducts : Product[] = [];
+  currentProduct: Product = <Product>{};
 
   constructor(private productService: ProductService) {
     this.AtualizaProdutos();
@@ -19,27 +17,40 @@ export class ProductComponent {
     this.productService.getProducts().subscribe(p => this.AllProducts = p);
   }
 
-  
-
-
-
-
-
-
+  private initializeCurrentPeoduct(){
+    this.currentProduct = <Product>{ id: 0 };
+  }
 
   private show(){
     document.getElementById('show').click();
   }
 
-  public visualizar(prod: Product){
+  private close(){
+      document.getElementById('close').click();
+  }
 
+  public visualizar(prod: Product){
+    this.initializeCurrentPeoduct();
+    this.currentProduct.id = prod.id;
+    this.currentProduct.name = prod.name;
+    this.currentProduct.price = prod.price;
+    this.show();
   }
 
   public excluir(prod: Product){
+    this.productService.excluir(prod.id);
+    this.AtualizaProdutos();
+  }
 
+  public salvar(prod:Product){
+    console.log('teste');
+    this.productService.salvar(prod);
+    this.AtualizaProdutos();
+    this.close();
   }
 
   public novo(){
+    this.initializeCurrentPeoduct();
     this.show();
   }
 }

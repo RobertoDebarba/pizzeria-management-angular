@@ -44,13 +44,13 @@
 <div bsModal #largeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-        <form #productForm="ngForm">
+        <form #productForm="ngForm" (submit)="salvar(currentProduct)">
             <div class="card no-margin">
                 <div class="card-header">
                     <div class="float-left card-title">Produto</div>
                     <div class="float-right">
                         <button (click)="largeModal.hide()" class="btn btn-secondary float-left" id="close" type="button"><span class="fa fa-reply"></span> Voltar</button>
-                        <button type="submit" class="btn btn-success" [disabled]="!productForm.form.valid">Concluir cadastro</button>
+                        <button type="submit" class="btn btn-success" [disabled]="!productForm.form.valid"><span class="fa fa-check"></span> Salvar</button>
                     </div>
                 </div>
                 <div class="card-block">
@@ -60,7 +60,7 @@
                                 <span class="bold">Nome</span>
                             </div>
                             <div class="col-11">
-                                <input class="inputs" type="text" name="name" [(ngModel)]="name" required>
+                                <input class="inputs" type="text" name="name" [(ngModel)]="currentProduct.name" required>
                             </div>
                         </div>
                         <div class="row">
@@ -70,7 +70,7 @@
                             <div class="col-11">
                                 <div class="input-group">
                                     <span class="input-group-addon">R$</span>
-                                    <input class="form-control currency inputs" type="number"  name="price" [(ngModel)]="price" min="0" step="1" data-number-to-fixed="2" data-number-stepfactor="100" id="c2" placeholder="10,00" required/>
+                                    <input class="form-control currency inputs" type="number"  name="price" [(ngModel)]="currentProduct.price" min="0" step="1" data-number-to-fixed="2" data-number-stepfactor="100" id="c2" placeholder="10,00" required/>
                                 </div>
                             </div>
                         </div>
