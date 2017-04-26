@@ -24,6 +24,7 @@ export class OrderComponent {
 
   public textSearch: string;
   public ordination: string;
+  public ordinationAttribute: string;
 
   constructor(private orderServices: OrderService, private clientService: ClientService,
                private productService: ProductService){
@@ -33,7 +34,12 @@ export class OrderComponent {
 
   public setOrdination(ordination:string) {
     this.ordination = ordination;
-    console.log(ordination);
+
+    if (ordination == 'client') {
+      this.ordinationAttribute = 'name';
+    } else {
+      this.ordinationAttribute = null;
+    }
   }
 
   private atualizaOrders(){
