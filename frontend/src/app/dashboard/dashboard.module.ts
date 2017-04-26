@@ -1,3 +1,4 @@
+import { OrderFilterPipe } from './../provider/order-filter.pipe';
 import { HttpModule } from '@angular/http';
 import {NgModule} from "@angular/core";
 import {ChartsModule} from "ng2-charts/ng2-charts";
@@ -24,7 +25,8 @@ import {ProductFilterPipe} from "../provider/product-filter.pipe";
         OrderComponent,
         ClientComponent,
         ProductComponent,
-        ProductFilterPipe
+        ProductFilterPipe,
+        OrderFilterPipe
     ],
     providers: [
         OrderService
