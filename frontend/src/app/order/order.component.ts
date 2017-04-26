@@ -20,6 +20,7 @@ export class OrderComponent {
   AllProducts: Product[] = [];
   selectProduct: Product;
   selectQuantidade : number;
+  adicionouProduct: boolean;
 
   public textSearch: string;
 
@@ -64,6 +65,8 @@ export class OrderComponent {
 
   private show(){
     document.getElementById('show').click();
+    this.selectClient = null;
+    this.adicionouProduct = false;
   }
 
   public visualizar(ord: Order){
@@ -88,10 +91,6 @@ export class OrderComponent {
     this.atualizaOrders();
   }
 
-  public anulateField(){
-    this.selectClient = null;
-  }
-
   public close(){
       document.getElementById('close').click();
   }
@@ -102,6 +101,7 @@ export class OrderComponent {
   }
 
   public adcionaProduct(){
+    this.adicionouProduct = true;
     this.products.splice(this.products.indexOf(this.selectProduct), 1);
     this.currentOrder.products.push({product: this.selectProduct, amount: this.selectQuantidade});
     this.selectQuantidade = null;
