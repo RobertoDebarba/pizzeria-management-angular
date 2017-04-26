@@ -30,6 +30,12 @@ export class ClientService {
                 .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
+    public salvar(cli:Client){
+        this.http.post('http://localhost:3000/api/client/', cli , this.getHeaders())
+                .catch((error: any) => Observable.throw(error.json().error || 'Server error'))
+                .subscribe();
+    }
+
     private getHeaders(): RequestOptions{
         let options = new RequestOptions();
         options.headers = new Headers();

@@ -12,9 +12,6 @@ export class ProductComponent {
 
   public textSearch: string;
 
-  public name: string;
-  public price: number;
-
   constructor(private productService: ProductService) {
     this.AtualizaProdutos();
   }
