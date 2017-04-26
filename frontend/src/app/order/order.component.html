@@ -51,19 +51,20 @@
 <div bsModal #largeModal="bs-modal" id="modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-        <div class="card no-margin">
-            <div class="card-header">
-                <div class="float-left card-title">Pedido</div>
-                <div class="float-right">   
-                    <button (click)="largeModal.hide()" class="btn btn-secondary float-left" id="close" type="button"><span class="fa fa-reply"></span> Voltar</button>
-                    <button (click)="cancelar(currentOrder)" *ngIf="currentOrder.id > 0 && currentOrder.status == 'PENDING'" type="button" class="btn btn-danger float-left"><span class="fa fa-close"></span> Cancelar pedido</button>
-                    <button (click)="confirmar(currentOrder)" *ngIf="currentOrder.id > 0 && currentOrder.status == 'PENDING'" class="btn btn-success float-left"><span class="fa fa-check"></span> Concluir pedido</button>
-                    <button (click)="salvar(currentOrder)" *ngIf="currentOrder.id == 0" class="btn btn-success float-left"><span class="fa fa-check"></span> Salvar</button>
+        <form #orderForm="ngForm" (submit)="salvar(currentOrder)">
+            <div class="card no-margin">
+                <div class="card-header">
+                    <div class="float-left card-title">Pedido</div>
+                    <div class="float-right">
+                        <button (click)="largeModal.hide()" class="btn btn-secondary float-left" id="close" type="button"><span class="fa fa-reply"></span> Voltar</button>
+                        <button (click)="cancelar(currentOrder)" *ngIf="currentOrder.id > 0 && currentOrder.status == 'PENDING'" type="button" class="btn btn-danger float-left"><span class="fa fa-close"></span> Cancelar pedido</button>
+                        <button (click)="confirmar(currentOrder)" *ngIf="currentOrder.id > 0 && currentOrder.status == 'PENDING'" class="btn btn-success float-left"><span class="fa fa-check"></span> Concluir pedido</button>
+                        <button type="submit" *ngIf="currentOrder.id == 0" class="btn btn-success float-left" [disabled]="!orderForm.form.valid"><span class="fa fa-check"></span> Salvar</button>
+                    </div>
                 </div>
-            </div>
-            <div class="card-block">
-                <table *ngIf="currentOrder">
-                    <tbody>
+                <div class="card-block">
+                    <table *ngIf="currentOrder">
+                        <tbody>
                         <tr>
                             <th>Data</th>
                             <td>{{currentOrder.date | date: 'dd/MM/yyyy'}}</td>
@@ -87,34 +88,34 @@
                                 </div>
                             </td>
                         </tr>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
 
-                <div class="animated fadeIn espacamento-padrao">
-                    <div class="card no-margin">
-                        <div class="card-header">
-                            <div class="float-left card-title">Produtos</div>
-                        </div>
-                        <div class="card-block">
-                            <div *ngIf="currentOrder.id == 0" class="input-group">
-                                <select [(ngModel)]="selectProduct" class="custom-select">
-                                    <option *ngFor="let product of products" [ngValue]="product">{{product.name}}</option>
-                                </select>
-                                <input type="number" [(ngModel)]="selectQuantidade" class="form-control" placeholder="Quantidade...">
-                                <span class="input-group-btn">
+                    <div class="animated fadeIn espacamento-padrao">
+                        <div class="card no-margin">
+                            <div class="card-header">
+                                <div class="float-left card-title">Produtos</div>
+                            </div>
+                            <div class="card-block">
+                                <div *ngIf="currentOrder.id == 0" class="input-group">
+                                    <select [(ngModel)]="selectProduct" class="custom-select">
+                                        <option *ngFor="let product of products" [ngValue]="product">{{product.name}}</option>
+                                    </select>
+                                    <input type="number" [(ngModel)]="selectQuantidade" class="form-control" placeholder="Quantidade...">
+                                    <span class="input-group-btn">
                                     <button (click)="adcionaProduct()" class="btn btn-secondary" type="button" >Adicionar</button>
                                 </span>
-                            </div>
-                            <table class="table table-sm table-hover">
-                                <thead>
+                                </div>
+                                <table class="table table-sm table-hover">
+                                    <thead>
                                     <tr>
                                         <th width="60%">Nome</th>
                                         <th>Quantidade</th>
                                         <th>Valor</th>
                                         <th *ngIf="currentOrder.id == 0">Ação</th>
                                     </tr>
-                                </thead>
-                                <tbody> 
+                                    </thead>
+                                    <tbody>
                                     <!--currentOrder-->
                                     <tr *ngFor="let product of currentOrder.products">
                                         <td>{{product.product.name}}</td>
@@ -124,13 +125,14 @@
                                             <button title="Excluir produto" (click)="excluirProduto(product)" type="button" class="btn btn-danger  btn-sm" data-toggle="tooltip" data-placement="top"><span class="fa fa-minus"></span></button>
                                         </td>
                                     </tr>
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

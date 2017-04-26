@@ -24,15 +24,15 @@
     "@angular/platform-browser-dynamic": "2.4.9",
     "@angular/router": "3.4.9",
     "@angular/upgrade": "2.4.9",
-    "core-js": "2.4.1",
-    "rxjs": "5.2.0",
-    "ts-helpers": "1.1.2",
-    "zone.js": "0.7.2",
-
+    "angular2-text-mask": "^8.0.0",
     "chart.js": "2.5.0",
+    "core-js": "2.4.1",
+    "moment": "2.17.1",
     "ng2-bootstrap": "1.4.0",
     "ng2-charts": "1.5.0",
-    "moment": "2.17.1"
+    "rxjs": "5.2.0",
+    "ts-helpers": "1.1.2",
+    "zone.js": "0.7.2"
   },
   "devDependencies": {
     "@angular/cli": "1.0.0",

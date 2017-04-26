@@ -9,6 +9,7 @@ import { ModalModule } from 'ng2-bootstrap/modal';
 import {OrderService} from '../provider/order.service'
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TextMaskModule } from 'angular2-text-mask';
 import {ProductFilterPipe} from "../provider/product-filter.pipe";
 
 @NgModule({
@@ -18,6 +19,7 @@ import {ProductFilterPipe} from "../provider/product-filter.pipe";
         HttpModule,
         DashboardRoutingModule,
         ChartsModule,
+        TextMaskModule,
         ModalModule.forRoot()
     ],
     declarations: [
