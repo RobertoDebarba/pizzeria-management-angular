@@ -26,26 +26,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">Otto</th>
-                        <td>054.384.692-30</td>
-                        <td>(47) 3337-1155</td>
-                        <td>(47) 99154-5567</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Larry</th>
-                        <td>054.384.600-44</td>
-                        <td>(47) 3035-2525</td>
-                        <td>(47) 99995-5487</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Thornton</th>
-                        <td>052.394.792-31</td>
-                        <td>(47) 3229-2549</td>
-                        <td>(47) 99814-9814</td>
-                        <td>@mdo</td>
+                    <tr *ngFor="let client of AllClients" >
+                        <th>{{client.name}}</th>
+                        <td>{{client.cpf}}</td>
+                        <td>{{client.phone1}}</td>
+                        <td>{{client.phone2}}</td>
+                        <td>
+                            <button title="Visualizar" (click)="visualizar(client)" type="button" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" ><span class="fa fa-info"></span></button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
