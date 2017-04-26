@@ -1,3 +1,4 @@
+import { OrderFilterPipe } from './../provider/order-filter.pipe';
 import { OrderService, Order } from './../provider/order.service';
 import { ProductService, Product } from './../provider/product.services';
 import { ClientService, Client } from './../provider/client.services';
@@ -19,6 +20,8 @@ export class OrderComponent {
   AllProducts: Product[] = [];
   selectProduct: Product;
   selectQuantidade : number;
+
+  public textSearch: string;
 
   constructor(private orderServices: OrderService, private clientService: ClientService,
                private productService: ProductService){
@@ -47,7 +50,7 @@ export class OrderComponent {
   private internalNewOrder(){
     this.currentOrder = <Order>{};
     this.currentOrder.id = 0;
-    this.currentOrder.date = Date.now().toString();
+    this.currentOrder.date = new Date(Date.now()).toISOString();
     this.currentOrder.products = [];
     this.currentOrder.status = 'PENDING';
     this.currentOrder.totalPrice = 0;
