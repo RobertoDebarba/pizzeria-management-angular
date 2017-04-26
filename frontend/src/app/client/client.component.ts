@@ -1,3 +1,4 @@
+import { ClientFilterPipe } from './../provider/client-filter.pipe';
 import { ClientService, Client } from './../provider/client.services';
 import { Component } from '@angular/core';
 
@@ -14,7 +15,8 @@ export class ClientComponent {
 
   AllClients: Client[];
   CurrentClient: Client = <Client>{address: {}};
-  regNovo: boolean;
+
+  public textSearch: string;
 
   public ordination: string;
 
@@ -46,13 +48,11 @@ export class ClientComponent {
           info: cli.address.info
       }
     };
-    this.regNovo = false;
     this.show();
   }
 
   public Novo(){
     this.CurrentClient = <Client>{address: {}};
-    this.regNovo = true;
     this.show();
   }
 

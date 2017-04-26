@@ -8,7 +8,7 @@
         </div>
         <div class="card-block">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Pesquisar...">
+                <input type="text" class="form-control" [(ngModel)]="textSearch" placeholder="Pesquisar...">
                 <span class="input-group-btn">
                     <button class="btn btn-secondary" type="button" >
                         <span class="fa fa-search"></span>
@@ -18,7 +18,7 @@
             <table class="table table-sm table-hover">
                 <thead>
                     <tr>
-                        <th (click)="setOrdination('name')">Nome<div class="fa fa-fw fa-sort"></div></th>
+                        <th (click)="setOrdination('name')" width="40%">Nome<div class="fa fa-fw fa-sort"></div></th>
                         <th (click)="setOrdination('cpf')">CPF<div class="fa fa-fw fa-sort"></div></th>
                         <th (click)="setOrdination('phone1')">Telefone residencial<div class="fa fa-fw fa-sort"></div></th>
                         <th (click)="setOrdination('phone2')">Telefone celular<div class="fa fa-fw fa-sort"></div></th>
@@ -26,7 +26,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let client of AllClients | sortBy:ordination" >
+                    <tr *ngFor="let client of (AllClients | clientFilter:textSearch) | sortBy:ordination" >
                         <th>{{client.name}}</th>
                         <td>{{client.cpf}}</td>
                         <td>{{client.phone1}}</td>

@@ -1,3 +1,4 @@
+import { ClientFilterPipe } from './../provider/client-filter.pipe';
 import { OrderFilterPipe } from './../provider/order-filter.pipe';
 import { HttpModule } from '@angular/http';
 import {NgModule} from "@angular/core";
@@ -30,6 +31,7 @@ import {SortByPipe} from "../provider/sort.pipe";
         ProductComponent,
         ProductFilterPipe,
         OrderFilterPipe,
+        ClientFilterPipe,
         SortByPipe
     ],
     providers: [
