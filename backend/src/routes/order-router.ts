@@ -161,7 +161,7 @@ export class OrderRouter {
         let totalPrice:number = 0;
         for (let orderProduct of order.products) {
             let product = products.find((product) => product.id == orderProduct.id);
-            totalPrice += product.price;
+            totalPrice += product.price * orderProduct.amount;
         }
 
         return totalPrice;
