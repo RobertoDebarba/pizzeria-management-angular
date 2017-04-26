@@ -85,6 +85,10 @@ export class OrderComponent {
     this.atualizaOrders();
   }
 
+  public anulateField(){
+    this.selectClient = null;
+  }
+
   public close(){
       document.getElementById('close').click();
   }
