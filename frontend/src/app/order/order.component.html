@@ -59,7 +59,7 @@
                         <button (click)="largeModal.hide()" class="btn btn-secondary float-left" id="close" type="button"><span class="fa fa-reply"></span> Voltar</button>
                         <button (click)="cancelar(currentOrder)" *ngIf="currentOrder.id > 0 && currentOrder.status == 'PENDING'" type="button" class="btn btn-danger float-left"><span class="fa fa-close"></span> Cancelar pedido</button>
                         <button (click)="confirmar(currentOrder)" *ngIf="currentOrder.id > 0 && currentOrder.status == 'PENDING'" class="btn btn-success float-left"><span class="fa fa-check"></span> Concluir pedido</button>
-                        <button type="submit" *ngIf="currentOrder.id == 0" class="btn btn-success float-left" [disabled]="currentOrder.products.length > 0 && !orderFormInside.form.valid"><span class="fa fa-check"></span> Salvar</button>
+                        <button type="submit" *ngIf="currentOrder.id == 0" class="btn btn-success float-left" [disabled]="currentOrder.products.length == 0 || !orderFormInside.form.valid"><span class="fa fa-check"></span> Salvar</button>
                     </div>
                 </div>
                 <div class="card-block">

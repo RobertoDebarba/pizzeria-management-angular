@@ -57,7 +57,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-1">
-                                    <span class="bold align-right">Nome</span>
+                                    <span class="bold align-right">Nome*</span>
                                 </div>
                                 <div class="col-11">
                                     <input class="inputs" type="text" name="name" [(ngModel)]="name" required>
@@ -65,7 +65,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-1">
-                                    <span class="bold align-right">CPF</span>
+                                    <span class="bold align-right">CPF*</span>
                                 </div>
                                 <div class="col-5">
                                     <input class="inputs" type="text" placeholder="000.000.000-00" [textMask]="{mask: maskCpf}" name="cpf" [(ngModel)]="cpf" required/>
@@ -73,13 +73,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-1">
-                                    <span class="bold align-right">Telefone</span>
+                                    <span class="bold align-right">Telefone*</span>
                                 </div>
                                 <div class="col-5">
                                     <input class="inputs" type="text" placeholder="(47) 3333-3333" [textMask]="{mask: maskTelefone}" name="telefone" [(ngModel)]="telefone" required/>
                                 </div>
                                 <div class="col-1">
-                                    <span class="bold align-right">Celular</span>
+                                    <span class="bold align-right">Celular*</span>
                                 </div>
                                 <div class="col-5">
                                     <input class="inputs" type="text" placeholder="(47) 99999-9999" [textMask]="{mask: maskCelular}" name="celular" [(ngModel)]="celular" required/>
@@ -87,13 +87,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-1">
-                                    <span class="bold align-right">Rua</span>
+                                    <span class="bold align-right">Rua*</span>
                                 </div>
                                 <div class="col-5">
                                     <input class="inputs" type="text" name="rua" [(ngModel)]="rua" required/>
                                 </div>
                                 <div class="col-1">
-                                    <span class="bold align-right">Número</span>
+                                    <span class="bold align-right">Número*</span>
                                 </div>
                                 <div class="col-5">
                                     <input class="inputs" type="number" min="0" name="numero" [(ngModel)]="numero" required/>
@@ -101,13 +101,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-1">
-                                    <span class="bold align-right">Bairro</span>
+                                    <span class="bold align-right">Bairro*</span>
                                 </div>
                                 <div class="col-5">
                                     <input class="inputs" type="text" name="bairro" [(ngModel)]="bairro" required/>
                                 </div>
                                 <div class="col-1">
-                                    <span class="bold align-right">Cidade</span>
+                                    <span class="bold align-right">Cidade*</span>
                                 </div>
                                 <div class="col-5">
                                     <input class="inputs" type="text" name="cidade" [(ngModel)]="cidade" required/>
@@ -115,7 +115,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-1">
-                                    <span class="bold align-right">CEP</span>
+                                    <span class="bold align-right">CEP*</span>
                                 </div>
                                 <div class="col-5">
                                     <input class="inputs" type="text" placeholder="00000-000" [textMask]="{mask: maskCep}" name="cep" [(ngModel)]="cep" required/>
@@ -124,7 +124,7 @@
                                     <span class="bold align-right">Compl.</span>
                                 </div>
                                 <div class="col-5">
-                                    <input class="inputs" type="text" name="complemento" [(ngModel)]="complemento" required/>
+                                    <input class="inputs" type="text" name="complemento" [(ngModel)]="complemento"/>
                                 </div>
                             </div>
                         </div>
