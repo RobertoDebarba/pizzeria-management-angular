@@ -32,4 +32,11 @@ export class ClientComponent {
   private AtualizaClientes(){
     this.clientService.getClients().subscribe(p => this.AllClients = p);
   }
+
+
+
+
+  public visualizar(cli:Client){
+
+  }
 }
