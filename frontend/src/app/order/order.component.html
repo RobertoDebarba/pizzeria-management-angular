@@ -104,7 +104,7 @@
                                         <select [(ngModel)]="selectProduct" required name="selectProduct" class="custom-select">
                                             <option *ngFor="let product of products" [ngValue]="product">{{product.name}}</option>
                                         </select>
-                                        <input type="number" required [(ngModel)]="selectQuantidade" name="selectQuantidade" class="form-control" min="1" placeholder="Quantidade...">
+                                        <input type="number" required [(ngModel)]="selectQuantidade" name="selectQuantidade" class="form-control" min="1" max="999" placeholder="Quantidade...">
                                         <span class="input-group-btn">
                                             <button type="submit" [disabled]="!prodAddForm.form.valid" class="btn btn-secondary" >Adicionar</button>
                                         </span>
