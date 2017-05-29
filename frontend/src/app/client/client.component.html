@@ -61,7 +61,7 @@
                                     <span class="red">*</span><span class="bold">Nome</span>
                                 </div>
                                 <div class="col-11">
-                                    <input class="inputs" type="text" name="name" [(ngModel)]="CurrentClient.name" required>
+                                    <input class="inputs" type="text" name="name" maxlength="50" [(ngModel)]="CurrentClient.name" required>
                                 </div>
                             </div>
                             <div class="row">
@@ -91,13 +91,13 @@
                                     <span class="red">*</span><span class="bold">Rua</span>
                                 </div>
                                 <div class="col-5">
-                                    <input class="inputs" type="text" name="rua" [(ngModel)]="CurrentClient.address.place" required/>
+                                    <input class="inputs" type="text" name="rua" maxlength="75" [(ngModel)]="CurrentClient.address.place" required/>
                                 </div>
                                 <div class="col-1 align-right">
                                     <span class="red">*</span><span class="bold">Número</span>
                                 </div>
                                 <div class="col-5">
-                                    <input class="inputs" type="number" min="0" name="numero" [(ngModel)]="CurrentClient.address.number" required/>
+                                    <input class="inputs" type="number" min="0" name="numero" max="99999" [(ngModel)]="CurrentClient.address.number" required/>
                                 </div>
                             </div>
                             <div class="row">
@@ -105,13 +105,13 @@
                                     <span class="red">*</span><span class="bold">Bairro</span>
                                 </div>
                                 <div class="col-5">
-                                    <input class="inputs" type="text" name="bairro" [(ngModel)]="CurrentClient.address.neighborhood" required/>
+                                    <input class="inputs" type="text" name="bairro" maxlength="75" [(ngModel)]="CurrentClient.address.neighborhood" required/>
                                 </div>
                                 <div class="col-1 align-right">
                                     <span class="red">*</span><span class="bold">Cidade</span>
                                 </div>
                                 <div class="col-5">
-                                    <input class="inputs" type="text" name="cidade" [(ngModel)]="CurrentClient.address.city" required/>
+                                    <input class="inputs" type="text" name="cidade" maxlength="75" [(ngModel)]="CurrentClient.address.city" required/>
                                 </div>
                             </div>
                             <div class="row">
@@ -125,7 +125,7 @@
                                     <span class="bold">Compl.</span>
                                 </div>
                                 <div class="col-5">
-                                    <input class="inputs" type="text" name="complemento" [(ngModel)]="CurrentClient.address.info"/>
+                                    <input class="inputs" type="text" name="complemento" maxlength="75" [(ngModel)]="CurrentClient.address.info"/>
                                 </div>
                             </div>
                         </div>
