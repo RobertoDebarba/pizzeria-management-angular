@@ -1,7 +1,6 @@
-import { OrderFilterPipe } from './../provider/order-filter.pipe';
-import { OrderService, Order } from './../provider/order.service';
-import { ProductService, Product } from './../provider/product.services';
-import { ClientService, Client } from './../provider/client.services';
+import { OrderService, Order } from '../shared/service/order.service';
+import { ProductService, Product } from '../shared/service/product.services';
+import { ClientService, Client } from '../shared/service/client.services';
 import { Component } from '@angular/core';
 import {Injectable} from '@angular/core';
 

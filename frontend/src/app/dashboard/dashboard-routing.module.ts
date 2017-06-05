@@ -1,8 +1,8 @@
 import {NgModule} from "@angular/core";
 import {Routes, RouterModule} from "@angular/router";
-import {OrderComponent} from "../order/order.component";
-import {ProductComponent} from "../product/product.component";
-import {ClientComponent} from "../client/client.component";
+import {OrderComponent} from "./order/order.component";
+import {ProductComponent} from "./product/product.component";
+import {ClientComponent} from "./client/client.component";
 
 const routes: Routes = [
   {

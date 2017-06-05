@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { ProductService, Product } from '../provider/product.services'
-import {ProductFilterPipe} from "../provider/product-filter.pipe";
+import { ProductService, Product } from '../shared/service/product.services'
 
 @Component({
   templateUrl: 'product.component.html',

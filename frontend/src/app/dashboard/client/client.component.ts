@@ -1,6 +1,5 @@
-import { ClientFilterPipe } from './../provider/client-filter.pipe';
-import { ClientService, Client } from './../provider/client.services';
-import { Component } from '@angular/core';
+import {Client, ClientService} from "../shared/service/client.services";
+import {Component} from "@angular/core";
 
 @Component({
   templateUrl: 'client.component.html',

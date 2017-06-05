@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {Client} from "./client.services";
+import {Client} from "../service/client.services";
 
 @Pipe({name: 'clientFilter'})
 export class ClientFilterPipe implements PipeTransform {
