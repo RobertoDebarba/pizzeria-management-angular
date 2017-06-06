@@ -7,6 +7,7 @@
             </div>
         </div>
         <div class="card-block">
+            <alert-message [message]="" (confirm)="dishdus()"></alert-message>
             <div class="input-group">
                 <input type="text" class="form-control" [(ngModel)]="textSearch" placeholder="Pesquisar...">
                 <span class="input-group-btn">

@@ -1,0 +1,8 @@
+<div class="alert alert-warning" [ngClass]="{'alert-warning': isAlert, 'alert-success': !isAlert}" role="alert">
+    <button type="button" *ngIf="!isAlert" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    teste
+    <div class="float-right" *ngIf="isAlert">
+        <button (click)="cancelar()"  type="button" class="btn btn-danger float-left"><span class="fa fa-close"></span> Cancelar pedido</button>
+        <button (click)="confirmar()"  class="btn btn-success float-left"><span class="fa fa-check"></span> Concluir pedido</button>
+    </div>
+</div>

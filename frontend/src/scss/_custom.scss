@@ -14,7 +14,7 @@
 .card-header .btn {
     margin-top: 0;
 }
-.card-header .btn+.btn {
+.btn+.btn {
     margin-left: 5px;
 }
 
@@ -52,4 +52,8 @@
 .align-right{
     text-align: right;
     padding: 0;
+}
+.alert {
+    vertical-align: text-top;
+    line-height: 35px;
 }

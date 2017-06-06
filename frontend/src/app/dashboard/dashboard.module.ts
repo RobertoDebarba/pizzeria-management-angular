@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
 import {ProductFilterPipe} from "./shared/pipe/product-filter.pipe";
 import {SortByPipe} from "./shared/pipe/sort.pipe";
+import {AlertMessageComponent} from "./shared/alert/alert-message.compenent";
 
 @NgModule({
     imports: [
@@ -32,7 +33,8 @@ import {SortByPipe} from "./shared/pipe/sort.pipe";
         ProductFilterPipe,
         OrderFilterPipe,
         ClientFilterPipe,
-        SortByPipe
+        SortByPipe,
+        AlertMessageComponent
     ],
     providers: [
         OrderService
