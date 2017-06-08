@@ -81,6 +81,7 @@ export class OrderComponent {
     document.getElementById('show').click();
     this.selectClient = null;
     this.adicionouProduct = false;
+    this.alert1.isVisible = false;
   }
 
   public visualizar(ord: Order){
@@ -152,11 +153,11 @@ export class OrderComponent {
   }
 
   public salvar(ord: Order){
-    alert('teste');
     this.currentOrder.client = this.selectClient;
     this.orderServices.salvar(ord)
     .subscribe(() => {
       this.close();
+      this.alert1.alertar("Pedido Criado com Sucesso", false, ()=>{});
       this.atualizaOrders();
     });
   }
