@@ -13,6 +13,10 @@ import { AppRoutingModule } from './app.routing';
 
 //Layouts
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { LoginComponent } from './login/login.component';
+
+//Services
+import {AuthGuard} from './dashboard/shared/service/auth-guard.service';
 
 @NgModule({
   imports: [
@@ -24,12 +28,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   ],
   declarations: [
     AppComponent,
-    DashboardComponent
+    DashboardComponent,
+    LoginComponent
   ],
   providers: [{
     provide: LocationStrategy,
     useClass: HashLocationStrategy
-  }],
+  }, AuthGuard],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

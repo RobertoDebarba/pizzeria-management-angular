@@ -1,0 +1,26 @@
+import { HttpModule } from '@angular/http';
+import {NgModule} from "@angular/core";
+import {ChartsModule} from "ng2-charts/ng2-charts";
+import { ModalModule } from 'ng2-bootstrap/modal';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TextMaskModule } from 'angular2-text-mask';
+import {LoginComponent} from './login/login.component';
+import {LoginRoutingModule} from "./login-routing.module";
+
+@NgModule({
+    imports: [
+        CommonModule,
+        FormsModule,
+        HttpModule,
+        ChartsModule,
+        LoginRoutingModule,
+        TextMaskModule,
+        ModalModule.forRoot()
+    ],
+    declarations: [
+        LoginComponent
+    ]
+})
+export class LoginModule {
+}
