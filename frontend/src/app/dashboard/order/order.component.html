@@ -7,7 +7,8 @@
             </div>
         </div>
         <div class="card-block">
-            <alert-message [message]="" (confirm)="dishdus()"></alert-message>
+            <alert-message *ngIf="alert1.isVisible" [message]="alert1.message" [isAlert]="alert1.isAlert" 
+                           (cancel)="alert1.cancel()" (confirm)="alert1.funcao()" ></alert-message>
             <div class="input-group">
                 <input type="text" class="form-control" [(ngModel)]="textSearch" placeholder="Pesquisar...">
                 <span class="input-group-btn">
@@ -58,12 +59,14 @@
                     <div class="float-left card-title">Pedido</div>
                     <div class="float-right">
                         <button (click)="largeModal.hide()" class="btn btn-secondary float-left" id="close" type="button"><span class="fa fa-reply"></span> Voltar</button>
-                        <button (click)="cancelar(currentOrder)" *ngIf="currentOrder.id > 0 && currentOrder.status == 'PENDING'" type="button" class="btn btn-danger float-left"><span class="fa fa-close"></span> Cancelar pedido</button>
-                        <button (click)="confirmar(currentOrder)" *ngIf="currentOrder.id > 0 && currentOrder.status == 'PENDING'" class="btn btn-success float-left"><span class="fa fa-check"></span> Concluir pedido</button>
+                        <button (click)="cancelarCurrent()" *ngIf="currentOrder.id > 0 && currentOrder.status == 'PENDING'" type="button" class="btn btn-danger float-left"><span class="fa fa-close"></span> Cancelar pedido</button>
+                        <button (click)="confirmarCurrent()" *ngIf="currentOrder.id > 0 && currentOrder.status == 'PENDING'" type="button" class="btn btn-success float-left"><span class="fa fa-check"></span> Concluir pedido</button>
                         <button type="submit" *ngIf="currentOrder.id == 0" class="btn btn-success float-left" [disabled]="currentOrder.products.length == 0 || !orderFormInside.form.valid"><span class="fa fa-check"></span> Salvar</button>
                     </div>
                 </div>
                 <div class="card-block">
+                    <alert-message *ngIf="alert2.isVisible" [message]="alert2.message" [isAlert]="alert2.isAlert" 
+                                (cancel)="alert2.cancel()" (confirm)="alert2.funcao()" ></alert-message>
                     <form #orderFormInside="ngForm">
                         <table *ngIf="currentOrder">
                             <tbody>
@@ -100,6 +103,8 @@
                                 <div class="float-left card-title">Produtos</div>
                             </div>
                             <div class="card-block">
+                                <alert-message *ngIf="alert3.isVisible" [message]="alert3.message" [isAlert]="alert3.isAlert" 
+                                        (cancel)="alert3.cancel()" (confirm)="alert3.funcao()" ></alert-message>
                                 <form #prodAddForm="ngForm"  (submit)="adcionaProduct()">
                                     <div *ngIf="currentOrder.id == 0" class="input-group">
                                         <select [(ngModel)]="selectProduct" required name="selectProduct" class="custom-select">

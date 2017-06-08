@@ -3,6 +3,8 @@ import { ProductService, Product } from '../shared/service/product.services';
 import { ClientService, Client } from '../shared/service/client.services';
 import { Component } from '@angular/core';
 import {Injectable} from '@angular/core';
+import { Alert } from '../shared/alert/alert-message.compenent'
+
 
 @Component({
   templateUrl: 'order.component.html',
@@ -20,6 +22,9 @@ export class OrderComponent {
   selectProduct: Product;
   selectQuantidade : number;
   adicionouProduct: boolean;
+  alert1 : Alert = new Alert();
+  alert2 : Alert = new Alert();
+  alert3 : Alert = new Alert();
 
   public textSearch: string;
   public ordination: string;
@@ -79,6 +84,9 @@ export class OrderComponent {
   }
 
   public visualizar(ord: Order){
+    this.alert1.isVisible = false;
+    this.alert2.isVisible = false;
+    this.alert3.isVisible = false;
     this.setCurrentOrder(ord);
     this.show();
   }
@@ -89,6 +97,16 @@ export class OrderComponent {
   }
 
   public cancelar(ord: Order){
+    this.alert1.alertar("Deseja Realmente Cancelar o Pedido?", true, ()=>{this.doCancelar(ord)});
+  }
+
+  public cancelarCurrent(){
+    this.alert2.alertar("Deseja Realmente Cancelar o Pedido?", true, ()=>{this.doCancelar(this.currentOrder)});
+  }
+
+  private doCancelar(ord: Order){
+    this.alert1.isVisible = false;
+    this.alert2.isVisible = false;
     this.orderServices.cancelar(ord.id)
     .subscribe(() => {
       this.close();
@@ -97,10 +115,20 @@ export class OrderComponent {
   }
 
   public confirmar(ord: Order){
+    this.alert1.alertar("Deseja Realmente Confirmar a Pedido?", true, ()=>{this.doConfirmar(ord)});
+  }
+
+  public confirmarCurrent(){
+    this.alert2.alertar("Deseja Realmente Confirmar o Pedido?", true, ()=>{this.doConfirmar(this.currentOrder)});
+  }
+
+  private doConfirmar(ord: Order){
+    this.alert1.isVisible = false;
+    this.alert2.isVisible = false;
     this.orderServices.confirmar(ord.id)
     .subscribe(() => {
-      this.close();
       this.atualizaOrders();
+      this.close();
     });
   }
 
@@ -109,8 +137,11 @@ export class OrderComponent {
   }
 
   public excluirProduto(prod : {product:Product, amount:number}){
-     this.currentOrder.products.splice(this.currentOrder.products.indexOf(prod), 1);
-     this.products.push(prod.product);
+    this.alert3.alertar("Deseja Realmente excluir o Produto?", true, ()=>{
+      this.alert3.isVisible = false;
+      this.currentOrder.products.splice(this.currentOrder.products.indexOf(prod), 1);
+      this.products.push(prod.product);
+     });
   }
 
   public adcionaProduct(){
@@ -121,6 +152,7 @@ export class OrderComponent {
   }
 
   public salvar(ord: Order){
+    alert('teste');
     this.currentOrder.client = this.selectClient;
     this.orderServices.salvar(ord)
     .subscribe(() => {
