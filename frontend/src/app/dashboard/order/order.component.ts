@@ -1,7 +1,7 @@
 import { OrderService, Order } from '../shared/service/order.service';
 import { ProductService, Product } from '../shared/service/product.services';
 import { ClientService, Client } from '../shared/service/client.services';
-import { Component } from '@angular/core';
+import { Component , ViewChild, ElementRef} from '@angular/core';
 import {Injectable} from '@angular/core';
 import { Alert } from '../shared/alert/alert-message.compenent'
 
@@ -25,6 +25,8 @@ export class OrderComponent {
   alert1 : Alert = new Alert();
   alert2 : Alert = new Alert();
   alert3 : Alert = new Alert();
+
+  @ViewChild('alerta1') viewAlert1:ElementRef;
 
   public textSearch: string;
   public ordination: string;
@@ -98,11 +100,12 @@ export class OrderComponent {
   }
 
   public cancelar(ord: Order){
-    this.alert1.alertar("Deseja Realmente Cancelar o Pedido?", true, ()=>{this.doCancelar(ord)});
+    this.alert1.alertar("Deseja realmente cancelar o pedido?", true, ()=>{this.doCancelar(ord)});
+    this.viewAlert1.nativeElement.scrollIntoView();
   }
 
   public cancelarCurrent(){
-    this.alert2.alertar("Deseja Realmente Cancelar o Pedido?", true, ()=>{this.doCancelar(this.currentOrder)});
+    this.alert2.alertar("Deseja realmente cancelar o pedido?", true, ()=>{this.doCancelar(this.currentOrder)});
   }
 
   private doCancelar(ord: Order){
@@ -116,11 +119,12 @@ export class OrderComponent {
   }
 
   public confirmar(ord: Order){
-    this.alert1.alertar("Deseja Realmente Confirmar a Pedido?", true, ()=>{this.doConfirmar(ord)});
+    this.alert1.alertar("Deseja realmente concluir o pedido?", true, ()=>{this.doConfirmar(ord)});
+    this.viewAlert1.nativeElement.scrollIntoView(); 
   }
 
   public confirmarCurrent(){
-    this.alert2.alertar("Deseja Realmente Confirmar o Pedido?", true, ()=>{this.doConfirmar(this.currentOrder)});
+    this.alert2.alertar("Deseja realmente confirmar o pedido?", true, ()=>{this.doConfirmar(this.currentOrder)});
   }
 
   private doConfirmar(ord: Order){
@@ -138,7 +142,7 @@ export class OrderComponent {
   }
 
   public excluirProduto(prod : {product:Product, amount:number}){
-    this.alert3.alertar("Deseja Realmente excluir o Produto?", true, ()=>{
+    this.alert3.alertar("Deseja realmente excluir o produto?", true, ()=>{
       this.alert3.isVisible = false;
       this.currentOrder.products.splice(this.currentOrder.products.indexOf(prod), 1);
       this.products.push(prod.product);
@@ -157,7 +161,8 @@ export class OrderComponent {
     this.orderServices.salvar(ord)
     .subscribe(() => {
       this.close();
-      this.alert1.alertar("Pedido Criado com Sucesso", false, ()=>{});
+      this.alert1.alertar("Pedido criado com sucesso", false, ()=>{});
+      this.viewAlert1.nativeElement.scrollIntoView();
       this.atualizaOrders();
     });
   }
