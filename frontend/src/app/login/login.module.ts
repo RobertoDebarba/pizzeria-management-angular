@@ -5,7 +5,7 @@ import { ModalModule } from 'ng2-bootstrap/modal';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
-import {LoginComponent} from './login/login.component';
+import {LoginCardComponent} from './login/login-card.component';
 import {LoginRoutingModule} from "./login-routing.module";
 
 @NgModule({
@@ -19,7 +19,7 @@ import {LoginRoutingModule} from "./login-routing.module";
         ModalModule.forRoot()
     ],
     declarations: [
-        LoginComponent
+        LoginCardComponent
     ]
 })
 export class LoginModule {

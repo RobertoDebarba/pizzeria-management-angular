@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-    templateUrl: 'login.component.html',
+    templateUrl: './login-card.component.html',
 })
-export class LoginComponent {
+export class LoginCardComponent {
 
     public username: string;
     public password: string;
