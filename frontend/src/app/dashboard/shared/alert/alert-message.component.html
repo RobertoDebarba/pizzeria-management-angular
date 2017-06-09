@@ -1,0 +1,8 @@
+<div class="alert alert-warning" [ngClass]="{'alert-warning': isAlert, 'alert-info': !isAlert}" role="alert">
+    <button type="button" (click)="cancelar()" *ngIf="!isAlert" class="close btnClose" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    {{message}}
+    <div class="float-right" *ngIf="isAlert">
+        <button (click)="cancelar()"  type="button" class="btn btn-danger float-left"><span class="fa fa-close"></span> Cancelar</button>
+        <button (click)="confirmar()" type="button" class="btn btn-success float-left"><span class="fa fa-check"></span> Confirmar</button>
+    </div>
+</div>

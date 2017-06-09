@@ -1,12 +1,14 @@
 <div class="animated fadeIn">
     <div class="card">
-        <div class="card-header">
+        <div #alerta1 class="card-header">
             <div class="float-left card-title">Produtos</div>
             <div class="float-right">   
                 <button (click)="novo()" type="button" class="btn btn-success float-left" data-toggle="modal"><span class="fa fa-plus"></span> Novo</button>
             </div>
         </div>
         <div class="card-block">
+            <alert-message *ngIf="alert1.isVisible" [message]="alert1.message" [isAlert]="alert1.isAlert" 
+                           (cancel)="alert1.cancel()" (confirm)="alert1.funcao()" ></alert-message>
             <div class="input-group">
                 <input type="text" class="form-control" [(ngModel)]="textSearch" placeholder="Pesquisar...">
                 <span class="input-group-btn">
