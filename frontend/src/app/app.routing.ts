@@ -11,21 +11,20 @@ import { AuthGuard } from '../app/dashboard/shared/service/auth-guard.service';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'dashboard',
     pathMatch: 'full',
   },
   {
     path: '',
-    canActivate: [AuthGuard],
     component: DashboardComponent,
+    canActivate: [AuthGuard],
     data: {
       title: 'Início'
     },
     children: [
       {
         path: 'dashboard',
-        loadChildren: './dashboard/dashboard.module#DashboardModule',
-        canActivateChild: [AuthGuard],
+        loadChildren: './dashboard/dashboard.module#DashboardModule'
       },
     ]
   },
