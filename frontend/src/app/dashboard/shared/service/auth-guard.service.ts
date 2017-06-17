@@ -17,21 +17,18 @@ export class AuthGuard implements CanActivate {
 
     checkLogin(url: string): Observable<boolean> {
         if(localStorage.getItem('ITATAKARU')){
-            return Observable.of(true);
-            //TODO VALIDAR SE O TOKEN É VALIDO
-            // return this.http.get('http://localhost:3000/token/validate/'+ localStorage.getItem('ITATAKARU'), this.getHeaders())
-            //         .map((res:Response) => {
-            //             var logged: boolean = res.json().logged;
-            //             if (!logged) this.router.navigate(['/login']);
-            //             return logged;
-            //         });
+            return this.http.get('http://localhost:3000/api/token/validate/'+ localStorage.getItem('ITATAKARU'), this.getHeaders())
+                .map((res:Response) => {
+                    var logged: boolean = res.json().logged;
+                    if (!logged) this.router.navigate(['/login']);
+                    return logged;
+                });
         }
         this.router.navigate(['/login']);
         return Observable.of(false);
     }
 
-
-    private getHeaders(): RequestOptions{
+    private getHeaders(): RequestOptions {
         let options = new RequestOptions();
         options.headers = new Headers();
         options.headers.set('Access-Control-Allow-Origin', '*');

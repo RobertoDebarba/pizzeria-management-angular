@@ -1,26 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {Http, RequestOptions, Headers} from "@angular/http";
-
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/delay';
+import 'rxjs/Rx';
+import 'rxjs/add/operator/map';
 
-interface Login{
+export interface Login {
     successful:boolean,
     token:string
 }
 
 @Injectable()
 export class AuthService {
+
     constructor(private http: Http, private router: Router) {}
 
     login(username: string, password: string): Observable<Login> {
-        //Chamar Backend
-        // return this.http.post('http://localhost:3000/login/', {username, password}, this.getHeaders())
-        //         .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
-        return Observable.of({ successful:true, token: 'OK'} as Login);
+        return this.http.post('http://localhost:3000/api/login/', {username, password}, this.getHeaders())
+            .map(response => response.json() as Login)
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
     private getHeaders(): RequestOptions{

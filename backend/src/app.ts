@@ -4,6 +4,8 @@ import * as bodyParser from "body-parser";
 import ClientRouter from "./routes/client-router";
 import OrderRouter from "./routes/order-router";
 import ProductRouter from "./routes/product-router";
+import LoginRouter from "./routes/login-router";
+import TokenRouter from "./routes/token-router";
 
 class App {
 
@@ -36,6 +38,8 @@ class App {
         this.express.use('/api/client', ClientRouter);
         this.express.use('/api/order', OrderRouter);
         this.express.use('/api/product', ProductRouter);
+        this.express.use('/api/login', LoginRouter);
+        this.express.use('/api/token', TokenRouter);
     }
 
 }
