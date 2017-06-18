@@ -1,5 +1,6 @@
 import {Client, ClientService} from "../shared/service/client.services";
-import {Component} from "@angular/core";
+import {Component , ViewChild, ElementRef} from "@angular/core";
+import { Alert } from '../shared/alert/alert-message.compenent'
 
 @Component({
   templateUrl: 'client.component.html',
@@ -11,6 +12,9 @@ export class ClientComponent {
   public maskTelefone = ['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   public maskCelular = ['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   public maskCep = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
+  alert1 : Alert = new Alert();
+
+  @ViewChild('alerta1') viewAlert1:ElementRef;
 
   AllClients: Client[];
   CurrentClient: Client = <Client>{address: {}};
@@ -59,6 +63,7 @@ export class ClientComponent {
 
   private show(){
     document.getElementById('show').click();
+    this.alert1.isVisible = false;
   }
 
   private close(){
@@ -74,6 +79,8 @@ export class ClientComponent {
     .subscribe(() =>{
       this.AtualizaClientes();
       this.close();
+      this.alert1.alertar("Cliente salvo com sucesso", false, ()=>{});
+      this.viewAlert1.nativeElement.scrollIntoView();
     });
   }
 

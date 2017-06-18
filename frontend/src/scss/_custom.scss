@@ -14,7 +14,7 @@
 .card-header .btn {
     margin-top: 0;
 }
-.card-header .btn+.btn {
+.btn+.btn {
     margin-left: 5px;
 }
 
@@ -52,4 +52,26 @@
 .align-right{
     text-align: right;
     padding: 0;
+}
+.alert {
+    vertical-align: text-top;
+    line-height: 35px;
+}
+.btnClose{
+    padding: 9px 17px !important;
+}
+.login-div{
+    width: 35%;
+}
+.login-logo {
+    text-align: center;
+    width: 100%;
+    padding-top: 50px;
+
+    div {
+        height: 70px;
+        width: auto;
+        background: url("../img/logo.png") no-repeat center;
+        background-size: 200px auto;
+    }
 }

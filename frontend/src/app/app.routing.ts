@@ -3,6 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 
 //Layouts
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { LoginComponent } from './login/login.component';
+
+//Services
+import { AuthGuard } from '../app/dashboard/shared/service/auth-guard.service';
 
 export const routes: Routes = [
   {
@@ -13,6 +17,7 @@ export const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
+    canActivate: [AuthGuard],
     data: {
       title: 'Início'
     },
@@ -20,6 +25,19 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         loadChildren: './dashboard/dashboard.module#DashboardModule'
+      },
+    ]
+  },
+  {
+    path: '',
+    component: LoginComponent,
+    data: {
+      title: 'Login'
+    },
+    children: [
+      {
+        path: 'login',
+        loadChildren: './login/login.module#LoginModule'
       },
     ]
   }

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component , ViewChild, ElementRef } from '@angular/core';
 import { ProductService, Product } from '../shared/service/product.services'
+import { Alert } from '../shared/alert/alert-message.compenent'
 
 @Component({
   templateUrl: 'product.component.html',
@@ -9,6 +10,9 @@ export class ProductComponent {
   AllProducts : Product[] = [];
   currentProduct: Product = <Product>{};
 
+  @ViewChild('alerta1') viewAlert1:ElementRef;
+
+  alert1 : Alert = new Alert();
   public textSearch: string;
 
   public ordination: string;
@@ -32,6 +36,7 @@ export class ProductComponent {
 
   private show(){
     document.getElementById('show').click();
+    this.alert1.isVisible = false;
   }
 
   private close(){
@@ -47,14 +52,24 @@ export class ProductComponent {
   }
 
   public excluir(prod: Product){
-    this.productService.excluir(prod.id)
-    .subscribe(() => this.AtualizaProdutos());
+    this.alert1.alertar("Deseja realmente excluir o produto?", true, ()=>{
+      this.productService.excluir(prod.id)
+      .subscribe(() => {
+        this.AtualizaProdutos();
+        this.alert1.isVisible = false;
+        });
+    });
+    this.viewAlert1.nativeElement.scrollIntoView();
   }
 
   public salvar(prod:Product){
     this.productService.salvar(prod)
-    .subscribe(() => this.AtualizaProdutos());
-    this.close();
+    .subscribe(() => {
+      this.AtualizaProdutos()
+      this.close();
+      this.alert1.alertar("Produto salvo com sucesso", false, ()=>{});
+      this.viewAlert1.nativeElement.scrollIntoView();
+    });
   }
 
   public novo(){

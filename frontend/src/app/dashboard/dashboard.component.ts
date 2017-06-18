@@ -25,4 +25,9 @@ export class DashboardComponent {
         return this.router.url.indexOf(page.route) > 0
     }
 
+    public sair(){
+        localStorage.removeItem('ITATAKARU');
+        location.assign('/');
+    }
+
 }
