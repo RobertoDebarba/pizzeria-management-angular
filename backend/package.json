@@ -36,6 +36,7 @@
     "express": "^4.14.0",
     "express-myconnection": "^1.0.4",
     "fs": "0.0.1-security",
+    "jsonwebtoken": "^7.4.1",
     "moment": "^2.18.1",
     "morgan": "^1.7.0",
     "mysql": "^2.13.0"
