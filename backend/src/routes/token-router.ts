@@ -3,19 +3,19 @@ let jwt = require('jsonwebtoken');
 
 export class TokenRouter {
 
-    router:Router;
+    router: Router;
 
-    constructor(){
+    constructor() {
         this.router = Router();
         this.init();
     }
 
-    public init(){
-        this.router.get('/validate/:token', this.validateToken);
+    public init() {
+        this.router.get('/validate/:token', TokenRouter.validateToken);
     }
 
-    private validateToken(request:Request, response:Response){
-        try{
+    private static validateToken(request: Request, response: Response) {
+        try {
             jwt.verify(request.params.token, 'ITATAKARU');
 
             response.status(200)
@@ -23,8 +23,7 @@ export class TokenRouter {
                     status: response.status,
                     logged: true
                 });
-        }
-        catch(err) {
+        } catch (err) {
             response.status(200)
                 .send({
                     status: response.status,

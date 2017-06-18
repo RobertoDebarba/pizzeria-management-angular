@@ -1,27 +1,10 @@
 import {Router, Request, Response} from "express";
-import * as fs from "fs";
-import * as path from "path";
-
-const dataFilePath:string = '../data/client';
-
-export interface Client {
-    name:string,
-    cpf:string,
-    phone1:string,
-    phone2:string,
-    address:{
-        place:string,
-        city:string,
-        zipCode:string,
-        number:number,
-        neighborhood:string,
-        info:string
-    }
-}
+import {ClientDao} from "../storage/client-dao";
+import {Client} from "../model/client.model";
 
 export class ClientRouter {
 
-    router:Router;
+    router: Router;
 
     constructor() {
         this.router = Router();
@@ -29,61 +12,47 @@ export class ClientRouter {
     }
 
     public init() {
-        this.router.get('/', this.getAll);
-        this.router.get('/:cpf', this.getOne);
-        this.router.post('/', this.save);
+        this.router.get('/', ClientRouter.getAll);
+        this.router.get('/:cpf', ClientRouter.getOne);
+        this.router.post('/', ClientRouter.save);
     }
 
-    private getAll(request:Request, response:Response) {
-        let clients:Client[] = require(dataFilePath);
-        response.send(clients);
+    private static getAll(request: Request, response: Response) {
+        ClientDao.getAll().then((clients: Client[]) => {
+            response.status(200).send(clients);
+        }).catch((error) => {
+            response.status(500).send({
+                message: error.message
+            })
+        })
     }
 
-    private getOne(request:Request, response:Response) {
-        let clients:Client[] = require(dataFilePath);
+    private static getOne(request: Request, response: Response) {
+        let cpf: string = request.params.cpf;
 
-        let query:string = request.params.cpf;
-        let client:Client = clients.find((client:Client) => client.cpf === query);
-        if (client) {
+        ClientDao.get(cpf).then((client: Client) => {
+            if (client) {
+                response.status(200).send(client);
+            } else {
+                response.status(404).send('No client found by the given cpf');
+            }
+        }).catch((error) => {
+            response.status(500).send({
+                message: error.message
+            })
+        })
+    }
+
+    private static save(request: Request, response: Response) {
+        let client: Client = request.body;
+
+        ClientDao.save(client).then(() => {
             response.status(200)
-                .send({
-                    message: 'Success',
-                    status: response.status,
-                    client
-                });
-        }
-        else {
-            response.status(404)
-                .send({
-                    message: 'No client found with the given cpf.',
-                    status: response.status
-                });
-        }
-    }
-
-    private save(request:Request, response:Response) {
-        let clients:Client[] = require(dataFilePath);
-
-        let client:Client = request.body;
-
-        let storedClient:Client = clients.find((storedClients:Client) => storedClients.cpf == client.cpf);
-        if (storedClient) {
-            storedClient.name = client.name;
-            storedClient.phone1 = client.phone1;
-            storedClient.phone2 = client.phone2;
-            storedClient.address = client.address;
-        } else {
-            clients.push(client);
-        }
-
-        fs.writeFile(path.join(__dirname, dataFilePath + ".json"), JSON.stringify(clients), 'UTF-8', () => {
-            clients = require(dataFilePath);
-            response.status(200)
-                .send({
-                    message: 'Success',
-                    status: response.status,
-                    client
-                });
+                .send(client)
+        }).catch((error) => {
+            response.status(500).send({
+                message: error.message
+            })
         })
     }
 

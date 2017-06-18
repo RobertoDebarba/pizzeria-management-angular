@@ -1,56 +1,45 @@
-import {Router, Request, Response} from "express";
+import {Request, Response, Router} from "express";
+import {User} from "../model/user.model";
+import {UserDao} from "../storage/user-dao";
+import {IError} from "mysql";
 let jwt = require('jsonwebtoken');
 
-const dataFilePath:string = '../data/user';
-
-export interface User {
-    id:number,
-    name:string,
-    password:string
-}
-
 export interface Login {
-    successful:boolean,
-    token:string
+    successful: boolean,
+    token: string
 }
 
 export class LoginRouter {
 
-    router:Router;
+    router: Router;
 
-    constructor(){
+    constructor() {
         this.router = Router();
         this.init();
     }
 
-    public init(){
-        this.router.post('/', this.getUser);
+    public init() {
+        this.router.post('/', LoginRouter.getUser);
     }
 
-    private getUser(request:Request, response:Response){
-        let users:User[] = require(dataFilePath);
+    private static getUser(request: Request, response: Response) {
+        let username: string = request.body.username;
+        let password: string = request.body.password;
 
-        let queryUser:string = request.body.username;
-        let queryPassword:string = request.body.password;
-
-        let user:User = users.find((user:User) => user.name === queryUser && user.password === queryPassword);
-
-        if(user){
-            response.status(200)
-                .send({
-                    status: response.status,
-                    successful: true,
-                    token: jwt.sign(user, 'ITATAKARU', {expiresIn: 1800})
-                });
-        }
-        else {
-            response.status(200)
-                .send({
-                    status: response.status,
-                    successful: false,
-                    token: ''
-                });
-        }
+        UserDao.get(username, password).then((user: User) => {
+            if (user) {
+                response.status(200)
+                    .send({
+                        token: jwt.sign(user, 'ITATAKARU', {expiresIn: 1800})
+                    });
+            } else {
+                response.status(401).send();
+            }
+        }).catch((error: IError) => {
+            response.status(500).send({
+                message: error.message
+            })
+        });
     }
 }
 

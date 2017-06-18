@@ -1,20 +1,10 @@
-import {Router, Request, Response} from "express";
-import * as fs from "fs";
-import * as path from "path";
-import {OrderStorage} from "./order-router";
-
-const dataFilePath:string = '../data/product';
-const orderDataFilePath:string = '../data/order';
-
-export interface Product {
-    id:number,
-    name:string,
-    price:number
-}
+import {Request, Response, Router} from "express";
+import {ProductDao} from "../storage/product-dao";
+import {Product} from "../model/product.model";
 
 export class ProductRouter {
 
-    router:Router;
+    router: Router;
 
     constructor() {
         this.router = Router();
@@ -22,102 +12,61 @@ export class ProductRouter {
     }
 
     public init() {
-        this.router.get('/', this.getAll);
-        this.router.get('/:id', this.getOne);
-        this.router.delete('/:id', this.delete);
-        this.router.post('/', this.save);
+        this.router.get('/', ProductRouter.getAll);
+        this.router.get('/:id', ProductRouter.getOne);
+        this.router.delete('/:id', ProductRouter.delete);
+        this.router.post('/', ProductRouter.save);
     }
 
-    private getAll(request:Request, response:Response) {
-        let products:Product[] = require(dataFilePath);
-        response.send(products);
-    }
-
-    private getOne(request:Request, response:Response) {
-        let products:Product[] = require(dataFilePath);
-
-        let query:number = parseInt(request.params.id);
-        let product:Product = products.find((product:Product) => product.id === query);
-        if (product) {
+    private static getAll(request: Request, response: Response) {
+        ProductDao.getAll().then((products: Product[]) => {
             response.status(200)
-                .send({
-                    message: 'Success',
-                    status: response.status,
-                    product
-                });
-        }
-        else {
-            response.status(404)
-                .send({
-                    message: 'No product found with the given id.',
-                    status: response.status
-                });
-        }
-    }
-
-    private save(request:Request, response:Response) {
-        let products:Product[] = require(dataFilePath);
-
-        let product:Product = request.body;
-
-        let storedProducts:Product = products.find((storedProducts:Product) => storedProducts.id == product.id);
-        if (storedProducts) {
-            storedProducts.id = product.id;
-            storedProducts.name = product.name;
-            storedProducts.price = product.price;
-        } else {
-            product.id = products[products.length - 1].id + 1;
-            products.push(product);
-        }
-
-        fs.writeFile(path.join(__dirname, dataFilePath + ".json"), JSON.stringify(products), 'UTF-8', () => {
-            products = require(dataFilePath);
-            response.status(200)
-                .send({
-                    message: 'Success',
-                    status: response.status,
-                    product
-                });
+                .send(products)
+        }).catch((error) => {
+            response.status(500).send({
+                message: error.message
+            })
         })
     }
 
-    private delete(request:Request, response:Response) {
-        let products:Product[] = require(dataFilePath);
+    private static getOne(request: Request, response: Response) {
+        let productId: number = parseInt(request.params.id);
 
-        let query:number = parseInt(request.params.id);
-
-        let storedProduct:Product = products.find((storedProducts:Product) => storedProducts.id == query);
-        if (storedProduct) {
-
-            let orders:OrderStorage[] = require(orderDataFilePath);
-            for (let order of orders) {
-                for (let product of order.products) {
-                    if (product.id == storedProduct.id) {
-                        order.products.splice(order.products.indexOf(product), 1);
-                    }
-                }
+        ProductDao.get(productId).then((product: Product) => {
+            if (product) {
+                response.status(200).send(product);
+            } else {
+                response.status(404).send('No product found by the given id');
             }
-            fs.writeFile(path.join(__dirname, orderDataFilePath + ".json"), JSON.stringify(orders), 'UTF-8', () => {
-
-                products.splice(products.indexOf(storedProduct), 1);
-
-                fs.writeFile(path.join(__dirname, dataFilePath + ".json"), JSON.stringify(products), 'UTF-8', () => {
-                    products = require(dataFilePath);
-                    response.status(200)
-                        .send({
-                            message: 'Success',
-                            status: response.status
-                        });
-                })
+        }).catch((error) => {
+            response.status(500).send({
+                message: error.message
             })
+        })
+    }
 
-        } else {
-            response.status(404)
-                .send({
-                    message: 'No product found with the given id.',
-                    status: response.status
-                });
-        }
+    private static save(request: Request, response: Response) {
+        ProductDao.save(request.body).then(() => {
+            response.status(200)
+                .send(request.body)
+        }).catch((error) => {
+            response.status(500).send({
+                message: error.message
+            })
+        })
+    }
+
+    private static delete(request: Request, response: Response) {
+        let productId: number = parseInt(request.params.id);
+
+        ProductDao.delete(productId).then(() => {
+            response.status(200)
+                .send(request.body)
+        }).catch((error) => {
+            response.status(500).send({
+                message: error.message
+            })
+        })
     }
 
 }

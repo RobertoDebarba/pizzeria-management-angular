@@ -10,9 +10,13 @@ export interface OrderStorage {
     id:number,
     date:string,
     status:string,
-    client:string,
+    client: {
+        cpf: string
+    },
     products:{
-        id:number,
+        product: {
+            id: number
+        },
         amount:number
     }[]
 }
@@ -71,11 +75,18 @@ export class OrderService {
             id: 0,
             date: ord.date,
             status: ord.status,
-            client: ord.client.cpf,
+            client: {
+                cpf: ord.client.cpf
+            },
             products: []
         };
         for(let prod of ord.products){
-            ordario.products.push({id: prod.product.id, amount: prod.amount});
+            ordario.products.push({
+                product: {
+                    id: prod.product.id
+                },
+                amount: prod.amount
+            });
         }
         return this.postSave(ordario);
     }
