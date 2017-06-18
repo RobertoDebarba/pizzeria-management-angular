@@ -17,10 +17,13 @@ import { LoginComponent } from './login/login.component';
 
 //Services
 import {AuthGuard} from './dashboard/shared/service/auth-guard.service';
+import {AuthService} from './dashboard/shared/service/auth.service';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   imports: [
     BrowserModule,
+        HttpModule,
     AppRoutingModule,
     DropdownModule.forRoot(),
     TabsModule.forRoot(),
@@ -34,7 +37,7 @@ import {AuthGuard} from './dashboard/shared/service/auth-guard.service';
   providers: [{
     provide: LocationStrategy,
     useClass: HashLocationStrategy
-  }, AuthGuard],
+  }, AuthGuard, AuthService],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

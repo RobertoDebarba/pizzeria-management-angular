@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
 import {LoginCardComponent} from './login/login-card.component';
 import {LoginRoutingModule} from "./login-routing.module";
+import { SharedModule } from "app/shared/shared.module";
 
 @NgModule({
     imports: [
@@ -16,7 +17,8 @@ import {LoginRoutingModule} from "./login-routing.module";
         ChartsModule,
         LoginRoutingModule,
         TextMaskModule,
-        ModalModule.forRoot()
+        ModalModule.forRoot(),
+        SharedModule
     ],
     declarations: [
         LoginCardComponent

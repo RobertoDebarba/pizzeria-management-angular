@@ -5,6 +5,8 @@
         </div>
         <div class="card-block">
             <form #loginForm="ngForm">
+                <alert-message *ngIf="alert1.isVisible" [message]="alert1.message" [isAlert]="alert1.isAlert" 
+                           (cancel)="alert1.cancel()" (confirm)="alert1.funcao()" ></alert-message>
                 <div class="form-group">
                     <input type="text" class="form-control" name="username" [(ngModel)]="username" id="username" placeholder="E-mail" required>
                 </div>
