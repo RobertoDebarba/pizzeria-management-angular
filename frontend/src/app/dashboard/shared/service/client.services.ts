@@ -47,6 +47,12 @@ export class ClientService {
         options.headers.set('Access-Control-Allow-Methods', ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS']);
         options.headers.set('Access-Control-Allow-Headers', ['Origin', 'Content-Type', 'X-Auth-Token']);
         options.headers.set('Content-Type', 'application/json');
+
+        let token: string = localStorage.getItem('ITATAKARU');
+        if (token) {
+            options.headers.append("Authorization", token);
+        }
+
         return options;
     }
 

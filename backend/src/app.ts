@@ -6,10 +6,11 @@ import OrderRouter from "./routes/order-router";
 import ProductRouter from "./routes/product-router";
 import LoginRouter from "./routes/login-router";
 import TokenRouter from "./routes/token-router";
+let jwt = require('jsonwebtoken');
 
 class App {
 
-    public express:express.Application;
+    public express: express.Application;
 
     constructor() {
         this.express = express();
@@ -17,16 +18,13 @@ class App {
         this.routes();
     }
 
-    private middleware():void {
+    private middleware(): void {
         this.express.use(logger('dev'));
         this.express.use(bodyParser.json());
         this.express.use(bodyParser.urlencoded({extended: false}));
     }
 
-    private routes():void {
-        /* This is just to get up and running, and to make sure what we've got is
-         * working so far. This function will change when we start to add more
-         * API endpoints */
+    private routes(): void {
         let router = express.Router();
 
         router.get('/', (req, res, next) => {
@@ -34,12 +32,61 @@ class App {
                 message: 'Hello World!'
             });
         });
-        this.express.use('/', router);
-        this.express.use('/api/client', ClientRouter);
-        this.express.use('/api/order', OrderRouter);
-        this.express.use('/api/product', ProductRouter);
-        this.express.use('/api/login', LoginRouter);
-        this.express.use('/api/token', TokenRouter);
+
+        let corsMiddleware = express.Router();
+
+        corsMiddleware.use(function (req, res, next) {
+
+            // Website you wish to allow to connect
+            res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+
+            // Request methods you wish to allow
+            res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+            // Request headers you wish to allow
+            res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Methods,Authorization,Access-Control-Allow-Headers,Access-Control-Allow-Origin,X-Requested-With,content-type,X-Auth-Token');
+
+            if ('OPTIONS' == req.method) {
+                res.send(200);
+            } else {
+                next();
+            }
+
+            // Set to true if you need the website to include cookies in the requests sent
+            // to the API (e.g. in case you use sessions)
+            // res.setHeader('Access-Control-Allow-Credentials', true);
+
+            // Pass to next layer of middleware
+            // next();
+        });
+
+        let authMiddleware = express.Router();
+
+        authMiddleware.use((req, res, next) => {
+            let token: string = req.headers['authorization'];
+            if (token) {
+                jwt.verify(token, 'ITATAKARU', function (err, decoded) {
+                    if (err) {
+                        return res.status(401).send({
+                            message: 'Invalid token.'
+                        });
+                    } else {
+                        next();
+                    }
+                })
+            } else {
+                return res.status(403).send({
+                    message: 'No token provided.'
+                })
+            }
+        });
+
+        this.express.use('/', corsMiddleware, router);
+        this.express.use('/api/client', corsMiddleware, authMiddleware, ClientRouter);
+        this.express.use('/api/order', corsMiddleware, authMiddleware, OrderRouter);
+        this.express.use('/api/product', corsMiddleware, authMiddleware, ProductRouter);
+        this.express.use('/api/login', corsMiddleware, LoginRouter);
+        this.express.use('/api/token', corsMiddleware, TokenRouter);
     }
 
 }
