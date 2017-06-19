@@ -26,7 +26,7 @@ export class OrderDao {
                     Storage.executeSql(getOrderIdQuery).then((newId: any) => {
                         for (let product of order.products) {
                             let insertProductsQuery: string = `INSERT INTO PRODUCTS_ORDERS (ID_PRODUCT, ID_ORDER, AMOUNT)
-                            VALUES (${product.product.id}, '${newId[0].id}', '${product.amount}')`;
+                            VALUES (${product.product.id}, ${newId[0].id}, ${product.amount})`;
 
                             insertPromises.push(Storage.executeSql(insertProductsQuery));
                         }
@@ -142,7 +142,7 @@ export class OrderDao {
                     PRODUCTS_ORDERS.ID_PRODUCT 'productId', 
                     PRODUCTS_ORDERS.AMOUNT 'amount'
                 FROM PRODUCTS_ORDERS
-                WHERE PRODUCTS_ORDERS.ID_PRODUCT = ${order.id}`;
+                WHERE PRODUCTS_ORDERS.ID_ORDER = ${order.id}`;
 
             Storage.executeSql(productsQuery).then((productOrdersStored: any[]) => {
                 let orderProducts: any[] = [];
