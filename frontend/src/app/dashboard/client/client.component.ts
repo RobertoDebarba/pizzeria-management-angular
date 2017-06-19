@@ -21,6 +21,8 @@ export class ClientComponent {
 
   public textSearch: string;
 
+  public isEdit: boolean = false;
+
   public ordination: string;
   public crecente: string = 'S';
 
@@ -39,6 +41,8 @@ export class ClientComponent {
   }
 
   public visualizar(cli:Client){
+    this.isEdit = true;
+
     this.CurrentClient ={
       cpf: cli.cpf,
       name: cli.name,
@@ -56,7 +60,9 @@ export class ClientComponent {
     this.show();
   }
 
-  public Novo(){
+  public novo(){
+    this.isEdit = false;
+
     this.CurrentClient = <Client>{address: {}};
     this.show();
   }
@@ -71,17 +77,22 @@ export class ClientComponent {
   }
 
   public salvar(cli: Client){
-    cli.cpf= cli.cpf;
-    cli.phone1= cli.phone1;
-    cli.phone2= cli.phone2;
-    cli.address.zipCode= cli.address.zipCode;
-    this.clientService.salvar(cli)
-    .subscribe(() =>{
-      this.AtualizaClientes();
-      this.close();
-      this.alert1.alertar("Cliente salvo com sucesso", false, ()=>{});
-      this.viewAlert1.nativeElement.scrollIntoView();
-    });
+    if (this.isEdit) {
+      this.clientService.editar(cli).subscribe(() =>{
+        this.AtualizaClientes();
+        this.close();
+        this.alert1.alertar("Cliente alterado com sucesso", false, ()=>{});
+        this.viewAlert1.nativeElement.scrollIntoView();
+      })
+    } else {
+      this.clientService.salvar(cli).subscribe(() =>{
+        this.AtualizaClientes();
+        this.close();
+        this.alert1.alertar("Cliente salvo com sucesso", false, ()=>{});
+        this.viewAlert1.nativeElement.scrollIntoView();
+      })
+    }
+
   }
 
 }

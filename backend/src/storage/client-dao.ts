@@ -30,6 +30,22 @@ export class ClientDao {
         return Storage.executeSql(sql);
     }
 
+    public static update(client: Client): Promise<any> {
+        let sql: string = `UPDATE CLIENTS SET
+                NAME = '${client.name}', 
+                TELEPHONE = '${client.phone1}', 
+                CELLPHONE = '${client.phone2}', 
+                ADDRESS = '${client.address.place}', 
+                NEIGHBORHOOD = '${client.address.neighborhood}', 
+                CITY = '${client.address.city}', 
+                ZIPCODE = '${client.address.zipCode}',
+                NUMBER = ${client.address.number}, 
+                INFO = '${client.address.info}' 
+            WHERE CPF = '${client.cpf}'`;
+
+        return Storage.executeSql(sql);
+    }
+
     public static getAll(): Promise<Client[]> {
         return ClientDao.getClients();
     }

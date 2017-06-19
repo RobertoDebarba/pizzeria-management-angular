@@ -3,7 +3,7 @@
         <div #alerta1 class="card-header">
             <div class="float-left card-title">Clientes</div>
             <div class="float-right">   
-                <button type="button" class="btn btn-success float-left" data-toggle="modal" (click)="Novo()"><span class="fa fa-plus"></span> Novo</button>
+                <button type="button" class="btn btn-success float-left" data-toggle="modal" (click)="novo()"><span class="fa fa-plus"></span> Novo</button>
             </div>
         </div>
         <div class="card-block">
@@ -71,7 +71,7 @@
                                     <span class="red">*</span><span class="bold">CPF</span>
                                 </div>
                                 <div class="col-5">
-                                    <input class="inputs" type="text" placeholder="000.000.000-00" [textMask]="{mask: maskCpf}" name="cpf" [(ngModel)]="CurrentClient.cpf" required/>
+                                    <input class="inputs" type="text" [disabled]="isEdit" placeholder="000.000.000-00" [textMask]="{mask: maskCpf}" name="cpf" [(ngModel)]="CurrentClient.cpf" required/>
                                 </div>
                             </div>
                             <div class="row">
