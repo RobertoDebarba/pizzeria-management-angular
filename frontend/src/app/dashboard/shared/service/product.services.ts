@@ -30,6 +30,11 @@ export class ProductService {
                 .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
+    public editar(prod:Product): Observable<any>{
+        return this.http.put('http://localhost:3000/api/product/', prod , this.getHeaders())
+                .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
     private getHeaders(): RequestOptions{
         let options = new RequestOptions();
         options.headers = new Headers();

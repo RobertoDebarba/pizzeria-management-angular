@@ -16,6 +16,7 @@ export class ProductRouter {
         this.router.get('/:id', ProductRouter.getOne);
         this.router.delete('/:id', ProductRouter.delete);
         this.router.post('/', ProductRouter.save);
+        this.router.put('/', ProductRouter.edit);
     }
 
     private static getAll(request: Request, response: Response) {
@@ -47,6 +48,17 @@ export class ProductRouter {
 
     private static save(request: Request, response: Response) {
         ProductDao.save(request.body).then(() => {
+            response.status(200)
+                .send(request.body)
+        }).catch((error) => {
+            response.status(500).send({
+                message: error.message
+            })
+        })
+    }
+
+    private static edit(request: Request, response: Response) {
+        ProductDao.edit(request.body).then(() => {
             response.status(200)
                 .send(request.body)
         }).catch((error) => {
