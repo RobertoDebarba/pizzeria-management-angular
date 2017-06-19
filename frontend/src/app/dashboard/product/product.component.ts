@@ -13,6 +13,9 @@ export class ProductComponent {
   @ViewChild('alerta1') viewAlert1:ElementRef;
 
   alert1 : Alert = new Alert();
+
+  public isEdit: boolean = false;
+
   public textSearch: string;
 
   public ordination: string;
@@ -44,6 +47,8 @@ export class ProductComponent {
   }
 
   public visualizar(prod: Product){
+    this.isEdit = true;
+
     this.initializeCurrentPeoduct();
     this.currentProduct.id = prod.id;
     this.currentProduct.name = prod.name;
@@ -51,28 +56,27 @@ export class ProductComponent {
     this.show();
   }
 
-  public excluir(prod: Product){
-    this.alert1.alertar("Deseja realmente excluir o produto?", true, ()=>{
-      this.productService.excluir(prod.id)
-      .subscribe(() => {
-        this.AtualizaProdutos();
-        this.alert1.isVisible = false;
-        });
-    });
-    this.viewAlert1.nativeElement.scrollIntoView();
-  }
-
   public salvar(prod:Product){
-    this.productService.salvar(prod)
-    .subscribe(() => {
-      this.AtualizaProdutos()
-      this.close();
-      this.alert1.alertar("Produto salvo com sucesso", false, ()=>{});
-      this.viewAlert1.nativeElement.scrollIntoView();
-    });
+    if (this.isEdit) {
+      this.productService.editar(prod).subscribe(() => {
+        this.AtualizaProdutos();
+        this.close();
+        this.alert1.alertar("Produto alterado com sucesso", false, ()=>{});
+        this.viewAlert1.nativeElement.scrollIntoView();
+      });
+    } else {
+      this.productService.salvar(prod).subscribe(() => {
+        this.AtualizaProdutos();
+        this.close();
+        this.alert1.alertar("Produto salvo com sucesso", false, ()=>{});
+        this.viewAlert1.nativeElement.scrollIntoView();
+      });
+    }
   }
 
   public novo(){
+    this.isEdit = false;
+
     this.initializeCurrentPeoduct();
     this.show();
   }

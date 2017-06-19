@@ -15,6 +15,7 @@ export class ClientRouter {
         this.router.get('/', ClientRouter.getAll);
         this.router.get('/:cpf', ClientRouter.getOne);
         this.router.post('/', ClientRouter.save);
+        this.router.put('/', ClientRouter.update);
     }
 
     private static getAll(request: Request, response: Response) {
@@ -47,6 +48,19 @@ export class ClientRouter {
         let client: Client = request.body;
 
         ClientDao.save(client).then(() => {
+            response.status(200)
+                .send(client)
+        }).catch((error) => {
+            response.status(500).send({
+                message: error.message
+            })
+        })
+    }
+
+    private static update(request: Request, response: Response) {
+        let client: Client = request.body;
+
+        ClientDao.update(client).then(() => {
             response.status(200)
                 .send(client)
         }).catch((error) => {

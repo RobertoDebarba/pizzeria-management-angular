@@ -10,6 +10,15 @@ export class ProductDao {
         return Storage.executeSql(sql);
     }
 
+    public static edit(product: Product): Promise<any> {
+        let sql: string = `UPDATE PRODUCTS SET 
+                NAME = '${product.name}', 
+                PRICE = '${product.price}' 
+            WHERE ID = ${product.id}`;
+
+        return Storage.executeSql(sql);
+    }
+
     public static getAll(): Promise<Product[]> {
         let sql: string = `SELECT ID 'id', NAME 'name', PRICE 'price' FROM PRODUCTS`;
 
@@ -23,13 +32,6 @@ export class ProductDao {
         return Storage.executeSql(sql).then((products: Product[]) => {
             return products[0];
         });
-    }
-
-    public static delete(id: number): Promise<any> {
-        let sql: string = `DELETE FROM PRODUCTS 
-            WHERE ID = ${id}`;
-
-        return Storage.executeSql(sql);
     }
 
 }

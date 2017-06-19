@@ -4,8 +4,44 @@ import {Client} from "../model/client.model";
 export class ClientDao {
 
     public static save(client: Client): Promise<any> {
-        let sql: string = `INSERT INTO CLIENTS (CPF, NAME, TELEPHONE, CELLPHONE, ADDRESS, NEIGHBORHOOD, CITY, ZIPCODE, NUMBER, INFO) 
-            VALUES ('${client.cpf}', '${client.name}', '${client.phone1}', '${client.phone2}', '${client.address.neighborhood}', '${client.address.city}', '${client.address.zipCode}', '${client.address.number}', '${client.address.info}')`;
+        let sql: string = `INSERT INTO CLIENTS (
+                CPF, 
+                NAME, 
+                TELEPHONE, 
+                CELLPHONE, 
+                ADDRESS, 
+                NEIGHBORHOOD, 
+                CITY, 
+                ZIPCODE, 
+                NUMBER, 
+                INFO) 
+            VALUES (
+                '${client.cpf}', 
+                '${client.name}', 
+                '${client.phone1}', 
+                '${client.phone2}', 
+                '${client.address.place}', 
+                '${client.address.neighborhood}', 
+                '${client.address.city}', 
+                '${client.address.zipCode}', 
+                ${client.address.number}, 
+                '${client.address.info}')`;
+
+        return Storage.executeSql(sql);
+    }
+
+    public static update(client: Client): Promise<any> {
+        let sql: string = `UPDATE CLIENTS SET
+                NAME = '${client.name}', 
+                TELEPHONE = '${client.phone1}', 
+                CELLPHONE = '${client.phone2}', 
+                ADDRESS = '${client.address.place}', 
+                NEIGHBORHOOD = '${client.address.neighborhood}', 
+                CITY = '${client.address.city}', 
+                ZIPCODE = '${client.address.zipCode}',
+                NUMBER = ${client.address.number}, 
+                INFO = '${client.address.info}' 
+            WHERE CPF = '${client.cpf}'`;
 
         return Storage.executeSql(sql);
     }

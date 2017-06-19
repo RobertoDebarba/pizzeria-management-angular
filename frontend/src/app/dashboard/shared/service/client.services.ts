@@ -35,6 +35,11 @@ export class ClientService {
                 .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
+    public editar(cli:Client): Observable<any>{
+        return this.http.put('http://localhost:3000/api/client/', cli , this.getHeaders())
+                .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
     private getHeaders(): RequestOptions{
         let options = new RequestOptions();
         options.headers = new Headers();

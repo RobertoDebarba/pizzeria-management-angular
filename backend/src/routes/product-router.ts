@@ -14,8 +14,8 @@ export class ProductRouter {
     public init() {
         this.router.get('/', ProductRouter.getAll);
         this.router.get('/:id', ProductRouter.getOne);
-        this.router.delete('/:id', ProductRouter.delete);
         this.router.post('/', ProductRouter.save);
+        this.router.put('/', ProductRouter.edit);
     }
 
     private static getAll(request: Request, response: Response) {
@@ -56,10 +56,8 @@ export class ProductRouter {
         })
     }
 
-    private static delete(request: Request, response: Response) {
-        let productId: number = parseInt(request.params.id);
-
-        ProductDao.delete(productId).then(() => {
+    private static edit(request: Request, response: Response) {
+        ProductDao.edit(request.body).then(() => {
             response.status(200)
                 .send(request.body)
         }).catch((error) => {
