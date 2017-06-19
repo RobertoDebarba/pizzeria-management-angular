@@ -34,11 +34,4 @@ export class ProductDao {
         });
     }
 
-    public static delete(id: number): Promise<any> {
-        let sql: string = `DELETE FROM PRODUCTS 
-            WHERE ID = ${id}`;
-
-        return Storage.executeSql(sql);
-    }
-
 }

@@ -56,17 +56,6 @@ export class ProductComponent {
     this.show();
   }
 
-  public excluir(prod: Product){
-    this.alert1.alertar("Deseja realmente excluir o produto?", true, ()=>{
-      this.productService.excluir(prod.id)
-      .subscribe(() => {
-        this.AtualizaProdutos();
-        this.alert1.isVisible = false;
-        });
-    });
-    this.viewAlert1.nativeElement.scrollIntoView();
-  }
-
   public salvar(prod:Product){
     if (this.isEdit) {
       this.productService.editar(prod).subscribe(() => {

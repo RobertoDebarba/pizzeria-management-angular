@@ -20,11 +20,6 @@ export class ProductService {
                 .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
-    public excluir(id : number): Observable<any>{
-        return this.http.delete('http://localhost:3000/api/product/' + id, this.getHeaders())
-                .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
-    }
-
     public salvar(prod:Product): Observable<any>{
         return this.http.post('http://localhost:3000/api/product/', prod , this.getHeaders())
                 .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
