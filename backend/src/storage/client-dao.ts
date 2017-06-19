@@ -4,8 +4,28 @@ import {Client} from "../model/client.model";
 export class ClientDao {
 
     public static save(client: Client): Promise<any> {
-        let sql: string = `INSERT INTO CLIENTS (CPF, NAME, TELEPHONE, CELLPHONE, ADDRESS, NEIGHBORHOOD, CITY, ZIPCODE, NUMBER, INFO) 
-            VALUES ('${client.cpf}', '${client.name}', '${client.phone1}', '${client.phone2}', '${client.address.neighborhood}', '${client.address.city}', '${client.address.zipCode}', '${client.address.number}', '${client.address.info}')`;
+        let sql: string = `INSERT INTO CLIENTS (
+                CPF, 
+                NAME, 
+                TELEPHONE, 
+                CELLPHONE, 
+                ADDRESS, 
+                NEIGHBORHOOD, 
+                CITY, 
+                ZIPCODE, 
+                NUMBER, 
+                INFO) 
+            VALUES (
+                '${client.cpf}', 
+                '${client.name}', 
+                '${client.phone1}', 
+                '${client.phone2}', 
+                '${client.address.place}', 
+                '${client.address.neighborhood}', 
+                '${client.address.city}', 
+                '${client.address.zipCode}', 
+                ${client.address.number}, 
+                '${client.address.info}')`;
 
         return Storage.executeSql(sql);
     }
