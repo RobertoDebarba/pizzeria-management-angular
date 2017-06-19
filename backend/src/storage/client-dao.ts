@@ -25,7 +25,7 @@ export class ClientDao {
                 '${client.address.city}', 
                 '${client.address.zipCode}', 
                 ${client.address.number}, 
-                '${client.address.info}')`;
+                ${client.address.info ? "'" + client.address.info + "'" : 'NULL'})`;
 
         return Storage.executeSql(sql);
     }
@@ -40,7 +40,7 @@ export class ClientDao {
                 CITY = '${client.address.city}', 
                 ZIPCODE = '${client.address.zipCode}',
                 NUMBER = ${client.address.number}, 
-                INFO = '${client.address.info}' 
+                INFO = ${client.address.info ? "'" + client.address.info + "'" : 'NULL'} 
             WHERE CPF = '${client.cpf}'`;
 
         return Storage.executeSql(sql);
