@@ -33,6 +33,33 @@ class App {
             });
         });
 
+        let corsMiddleware = express.Router();
+
+        corsMiddleware.use(function (req, res, next) {
+
+            // Website you wish to allow to connect
+            res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+
+            // Request methods you wish to allow
+            res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+            // Request headers you wish to allow
+            res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Methods,Authorization,Access-Control-Allow-Headers,Access-Control-Allow-Origin,X-Requested-With,content-type,X-Auth-Token');
+
+            if ('OPTIONS' == req.method) {
+                res.send(200);
+            } else {
+                next();
+            }
+
+            // Set to true if you need the website to include cookies in the requests sent
+            // to the API (e.g. in case you use sessions)
+            // res.setHeader('Access-Control-Allow-Credentials', true);
+
+            // Pass to next layer of middleware
+            // next();
+        });
+
         let authMiddleware = express.Router();
 
         authMiddleware.use((req, res, next) => {
@@ -54,12 +81,12 @@ class App {
             }
         });
 
-        this.express.use('/', router);
-        this.express.use('/api/client', authMiddleware, ClientRouter);
-        this.express.use('/api/order', authMiddleware, OrderRouter);
-        this.express.use('/api/product', authMiddleware, ProductRouter);
-        this.express.use('/api/login', LoginRouter);
-        this.express.use('/api/token', TokenRouter);
+        this.express.use('/', corsMiddleware, router);
+        this.express.use('/api/client', corsMiddleware, authMiddleware, ClientRouter);
+        this.express.use('/api/order', corsMiddleware, authMiddleware, OrderRouter);
+        this.express.use('/api/product', corsMiddleware, authMiddleware, ProductRouter);
+        this.express.use('/api/login', corsMiddleware, LoginRouter);
+        this.express.use('/api/token', corsMiddleware, TokenRouter);
     }
 
 }
