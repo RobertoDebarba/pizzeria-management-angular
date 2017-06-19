@@ -67,7 +67,7 @@ export class OrderService {
     }
 
     public cancelar(id: number): Observable<any>{
-        return this.http.post('http://localhost:3000/api/order/cancel/' + id, this.getHeaders())
+        return this.http.post('http://localhost:3000/api/order/cancel/' + id, {}, this.getHeaders())
                 .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
