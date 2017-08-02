@@ -1,6 +1,6 @@
 # Pizzeria Management System in Angular 2 and NodeJS
 
-This a sample pizzeria managemet system made with [Node](https://nodejs.org) ([ExpressJs](http://expressjs.com/pt-br/) + [TypeScript](https://www.typescriptlang.org/)) and [Angular 2](https://angular.io/) (with [CoreUI](http://coreui.io/)).
+This a sample pizzeria management system made with [Node](https://nodejs.org) ([ExpressJs](http://expressjs.com/pt-br/) + [TypeScript](https://www.typescriptlang.org/)) and [Angular 2](https://angular.io/) (with [CoreUI](http://coreui.io/)).
 
 ## Main features
 
@@ -9,9 +9,9 @@ This a sample pizzeria managemet system made with [Node](https://nodejs.org) ([E
 * Products CRUD
 * Orders CRUD
 
-![login]()
-![main]()
-![order]()
+![login](https://github.com/RobertoDebarba/pizzeria-management-angular/blob/master/screenshot/login.png)
+![main](https://github.com/RobertoDebarba/pizzeria-management-angular/blob/master/screenshot/main.png)
+![order](https://github.com/RobertoDebarba/pizzeria-management-angular/blob/master/screenshot/order.png)
 
 ## Prerequisites
 
