@@ -50,7 +50,7 @@ Default system user/password: admin1/senha
 
 * [Roberto Luiz Debarba](https://github.com/RobertoDebarba)
 * [Matheus Hoeltgebaum Pereira](https://github.com/matheushoeltgebaum)
-* [Matheus Adriano Pereira](https://github.com/Itatakaru)
+* [Matheus Adriano Pereira](https://github.com/matheusPereiraKrumm)
 
 ## API documentation
 
